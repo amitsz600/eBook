@@ -1,11 +1,15 @@
-﻿using Microsoft.AspNet.Identity.EntityFramework;
+﻿using Microsoft.AspNet.Identity;
+using Microsoft.AspNet.Identity.EntityFramework;
 using System;
 using System.Collections.Generic;
 using System.ComponentModel;
 using System.ComponentModel.DataAnnotations;
 using System.ComponentModel.DataAnnotations.Schema;
 using System.Linq;
+using System.Security.Claims;
+using System.Threading.Tasks;
 using System.Web;
+using System.Web.Mvc;
 
 namespace eBook.Models
 {
@@ -42,8 +46,8 @@ namespace eBook.Models
             return userIdentity;
         }
 
-        [HiddenInput(DisplayValue = false)]
-        // Likes Posts
-        public virtual ICollection<Post> Posts { get; set; }
+        //[HiddenInput(DisplayValue = false)]
+        //Likes Posts
+        //public virtual ICollection<Post> Posts { get; set; }
     }
 }

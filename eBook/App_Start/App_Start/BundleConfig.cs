@@ -1,7 +1,7 @@
 ﻿using System.Web;
 using System.Web.Optimization;
 
-namespace eBook
+namespace OckhamRzr
 {
     public class BundleConfig
     {

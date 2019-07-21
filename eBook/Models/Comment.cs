@@ -23,7 +23,7 @@ namespace eBook.Models
         [Required]
         [DataType(DataType.Text)]
         [ReadOnly(true)]
-        public int PostId { get; set; }
+        public int ProductId { get; set; }
 
         [Required]
         [DataType(DataType.Text)]
@@ -36,16 +36,14 @@ namespace eBook.Models
         public string Author { get; set; }
 
         [Required]
-        [DataType(DataType.Url)]
-        public string Site { get; set; }
-
-        [Required]
         [DataType(DataType.MultilineText)]
         [StringLength(500, MinimumLength = 3)]
         public string Body { get; set; }
 
-        [ForeignKey("PostId")]
-        public virtual Post RelatedPost { get; set; }
+        public int Rating;
+
+        [ForeignKey("ProductId")]
+        public virtual Product RelatedProduct { get; set; }
+
     }
-}
 }
