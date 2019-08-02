@@ -1,0 +1,32 @@
+﻿@model dynamic
+
+@{
+    ViewBag.Title = "title";
+    Layout = "~/Views/Shared/_Layout.cshtml";
+}
+
+<h3>What is this store?</h3>
+
+<div class="row">
+    <article class="info col-sm-7">
+        We were founded in 2019 by three friends from the College who started selling books online to earn some money, and ended up forming a pioneering social enterprise — a business with a mission to promote literacy.
+        We’re not a traditional company with an add-on “cause” component. Social and environmental responsibility is at the core of our business. You could say it's in our DNA.
+        We’re breaking new ground in online bookselling. We believe that education and access to books are basic human rights. That's why books sold on BetterWorldBooks.com help fund high-impact literacy projects in the United States and around the world. That's why we commit to matching every purchase on our website with a book donation to someone in need - Book for Book™
+        All books are available with free shipping worldwide. And in case you're concerned about your eco-footprint, every order shipped from Mishawaka is carbon balanced with Green-e Climate certified offsets from 3Degrees, a leading green power and carbon balancing services firm.
+        Here’s the best part: In addition to selling new titles, Better World Books supports book drives and collects used books and textbooks through a network of over 2,300 college campuses and partnerships with over 3,000 libraries nationwide. So far, the company has converted more than 250 million books into over $24 million in funding for literacy and education. In the process, we’ve also diverted more than 250 million books from landfills.
+        Because we believe that most every book has lasting value and the potential to help change the world, we see our job as helping to find new homes for unwanted books. Thus far, we’ve donated over 21 million books to partner programs around the world. Our three primary literacy partners are Books for Africa, Room to Read, and the National Center for Families Learning. Good company, no doubt.
+        Every book purchased from Better World Books contributes to individual literacy throughout the world and the potential for a better life. Clearly, we can’t do this work without our customers. That's why we’re so passionate about trying to offer the best price, selection, customer service, and overall shopping experience.
+        Thanks for joining us in our mission to create a better world, one book at a time.
+    </article>
+
+
+    <aside class="col-sm-5">
+        <canvas id="myCanvas" width="520" height="240 " style="border: 1em solid cadetblue;left: 1px;top: -15px;position: absolute;">
+            Your browser does not support the HTML5 canvas tag.
+        </canvas>
+        <video width="520" height="240" controls>
+            <source src="~/Content/Videos/ebook.mp4" type="video/mp4">
+            Your browser does not support the video tag.
+        </video>
+    </aside>
+</div>
