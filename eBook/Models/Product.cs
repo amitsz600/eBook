@@ -9,16 +9,16 @@ using System.Web.Mvc;
 
 namespace eBook.Models
 {
-    public class Product
+    public class Book
     {
-        public Product()
+        public Book()
         {
 
         }
 
         [Key]
         [DatabaseGenerated(DatabaseGeneratedOption.Identity)]
-        [DisplayName("Product ID")]
+        [DisplayName("Book ID")]
         public int ProductId { get; set; }
 
         [Required]

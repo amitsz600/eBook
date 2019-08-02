@@ -168,6 +168,10 @@
     <Compile Include="Migrations\201907211618326_Firs.Designer.cs">
       <DependentUpon>201907211618326_Firs.cs</DependentUpon>
     </Compile>
+    <Compile Include="Migrations\201908021349523_Rename.cs" />
+    <Compile Include="Migrations\201908021349523_Rename.Designer.cs">
+      <DependentUpon>201908021349523_Rename.cs</DependentUpon>
+    </Compile>
     <Compile Include="Migrations\Configuration.cs" />
     <Compile Include="Models\Comment.cs" />
     <Compile Include="Models\Product.cs" />
@@ -270,6 +274,9 @@
   <ItemGroup>
     <EmbeddedResource Include="Migrations\201907211618326_Firs.resx">
       <DependentUpon>201907211618326_Firs.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Migrations\201908021349523_Rename.resx">
+      <DependentUpon>201908021349523_Rename.cs</DependentUpon>
     </EmbeddedResource>
   </ItemGroup>
   <ItemGroup>
