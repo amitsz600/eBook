@@ -15,26 +15,82 @@
     <header>
         <h1 class="title text-center">eBook</h1>
     </header>
-        <nav class="navbar navbar-expand-lg navbar-dark bg-info">
-            <div class="container">
-                <div class="navbar-collapse collapse">
-                    <ul class="nav navbar-nav">
-                        <li>@Html.ActionLink("Home", "Index", "Products")</li>
-                        <li>@Html.ActionLink("About", "Index", "About")</li>
-                    </ul>
-                </div>
-            </div>
-        </nav>
+    <nav class="navbar navbar-expand-lg navbar-dark bg-info">
+        <ul class="nav navbar-nav mr-auto">
+            <li class="nav-item">@Html.ActionLink("Home", "Index", "Products", null, new {@class = "nav-link"})</li>
+            <li class="nav-item">@Html.ActionLink("About", "Index", "About", null, new {@class = "nav-link"})</li>
+        </ul>
+        <ul class="navbar-nav ml-auto">
+            <li class="navbar-text">
+                <span class="fa fa-cloud"></span>
+                <span id="temperature"></span>
+                <span id="city"></span>
+            </li>
+            <li class="nav-item">
+                @if (!User.Identity.IsAuthenticated)
+                {
+                <li>@Html.ActionLink("Login", "Login", "Users", null, new { @class = "nav-link" })</li>
+                <li>@Html.ActionLink("Register", "Register", "Users", null, new { @class = "nav-link" })</li>
+            }
+            else
+            {
+                if (User.IsInRole(IdentityConfigGlobals.MANAGER_ROLE))
+                {
+                    <li> @Html.ActionLink("Manage Posts", "Manager", "Posts", null, new { @class = "nav-link" }) </li>
+                    <li> @Html.ActionLink("Manage Users", "List", "Users", null, new { @class = "nav-link" }) </li>
+                }
+
+
+                <li> @Html.ActionLink("Statistics", "Index", "Statistics", null, new { @class = "nav-link" })</li>
+                <li> @Html.ActionLink("Log Out", "LogOut", "Users", null, new { @class = "nav-link" })</li>
+            }
+                </li>
+            </ul>
+    </nav>
     <div class="container body-content">
         @RenderBody()
         <hr />
         <footer>
-            <p>&copy; @DateTime.Now.Year - My ASP.NET Application</p>
+            <p>&copy; @DateTime.Now.Year - Guy Yossi & Amit's Application</p>
         </footer>
     </div>
 
+    @Scripts.Render("~/bundles/modernizr")
     @Scripts.Render("~/bundles/jquery")
     @Scripts.Render("~/bundles/bootstrap")
+    @Scripts.Render("~/bundles/d3")
+    <script src="~/Scripts/script.js"></script>
+
     @RenderSection("scripts", required: false)
+    <script type="text/javascript">
+        'use strict';
+
+        function initMap() {
+            var uluru = { lat: -25.363, lng: 131.044 };
+            var map = new google.maps.Map(document.getElementById('map'), {
+                zoom: 4,
+                center: uluru
+            });
+
+            $.get("/Posts/UsersByPostsAddressesQuery", function (data) {
+                for (var pos = 0; pos < data.length; pos++) {
+
+                    var geocoder = new google.maps.Geocoder()
+
+                    geocoder.geocode({
+                        "address": data[pos].Address
+                    }, function (results, status) {
+                        if (status == google.maps.GeocoderStatus.OK) {
+                            new google.maps.Marker({
+                                position: results[0].geometry.location,
+                                map: map
+                            });
+                        }
+                    }
+                    )
+                }
+            })
+        }
+    </script>
 </body>
 </html>
