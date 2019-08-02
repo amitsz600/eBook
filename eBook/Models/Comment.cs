@@ -43,7 +43,7 @@ namespace eBook.Models
         public int Rating;
 
         [ForeignKey("ProductId")]
-        public virtual Product RelatedProduct { get; set; }
+        public virtual Book RelatedProduct { get; set; }
 
     }
 }

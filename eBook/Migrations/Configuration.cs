@@ -36,7 +36,7 @@
             //
             context.Products.AddOrUpdate(
                 p => p.ProductId,
-                new Models.Product()
+                new Models.Book()
                 {
                     ProductId = 1,
                     Title = "the bible",

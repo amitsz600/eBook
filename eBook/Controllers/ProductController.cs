@@ -23,7 +23,7 @@ namespace eBook.Controllers
             string publisher,
             string author)
         {
-            IQueryable<Product> query = db.Products;
+            IQueryable<Book> query = db.Products;
 
             if (!string.IsNullOrEmpty(author))
             {
@@ -48,8 +48,8 @@ namespace eBook.Controllers
         //[Authorize(Roles = IdentityConfigGlobals.MANAGER_ROLE)]
         //public ActionResult Manager()
         //{
-        //    var groupQuery = from Product in db.Products
-        //                     group Product by Product.Category into ProductGroup
+        //    var groupQuery = from Book in db.Products
+        //                     group Book by Book.Category into ProductGroup
         //                     orderby ProductGroup.Key
         //                     select ProductGroup;
 
@@ -58,8 +58,8 @@ namespace eBook.Controllers
 
         //public ActionResult GetGroupsByCategories()
         //{
-        //    var groupQuery = from Product in db.Products
-        //                     group Product by Product.Category into ProductGroup
+        //    var groupQuery = from Book in db.Products
+        //                     group Book by Book.Category into ProductGroup
         //                     orderby ProductGroup.Key
         //                     //select new { Count=ProductGroup.Count(), Category=ProductGroup.First().Category };
         //                     select new { Count = ProductGroup.Count(), Category = ProductGroup.FirstOrDefault().Category };
@@ -74,7 +74,7 @@ namespace eBook.Controllers
             {
                 return new HttpStatusCodeResult(HttpStatusCode.BadRequest);
             }
-            Product product = db.Products.Find(id);
+            Book product = db.Products.Find(id);
             if (product == null)
             {
                 return HttpNotFound();
@@ -89,14 +89,14 @@ namespace eBook.Controllers
             return View();
         }
 
-        // Product: Products/Create
+        // Book: Products/Create
         // To protect from overProducting attacks, please enable the specific properties you want to bind to, for 
         // more details see https://go.microsoft.com/fwlink/?LinkId=317598.
         [HttpPost]
         [ValidateAntiForgeryToken]
         [ValidateInput(false)]
         [Authorize(Roles = IdentityConfigGlobals.MANAGER_ROLE + "," + IdentityConfigGlobals.USER_ROLE)]
-        public ActionResult Create([Bind(Include = "ProductId,Title,Author,Site,Body,Image,Video,Category,TwitterWidgets")] Product product)
+        public ActionResult Create([Bind(Include = "ProductId,Title,Author,Site,Body,Image,Video,Category,TwitterWidgets")] Book product)
         {
             if (ModelState.IsValid)
             {
@@ -116,7 +116,7 @@ namespace eBook.Controllers
             {
                 return new HttpStatusCodeResult(HttpStatusCode.BadRequest);
             }
-            Product product = db.Products.Find(id);
+            Book product = db.Products.Find(id);
             if (product == null)
             {
                 return HttpNotFound();
@@ -124,12 +124,12 @@ namespace eBook.Controllers
             return View(product);
         }
 
-        // Product: Products/Edit/5
+        // Book: Products/Edit/5
         // To protect from overProducting attacks, please enable the specific properties you want to bind to, for 
         // more details see https://go.microsoft.com/fwlink/?LinkId=317598.
         [HttpPost]
         [ValidateAntiForgeryToken]
-        public ActionResult Edit([Bind(Include = "ProductId,Title,Author,Site,Date,Body,Image,Video")] Product Product)
+        public ActionResult Edit([Bind(Include = "ProductId,Title,Author,Site,Date,Body,Image,Video")] Book Product)
         { 
             if (ModelState.IsValid)
             {
@@ -147,7 +147,7 @@ namespace eBook.Controllers
             {
                 return new HttpStatusCodeResult(HttpStatusCode.BadRequest);
             }
-            Product Product = db.Products.Find(id);
+            Book Product = db.Products.Find(id);
             if (Product == null)
             {
                 return HttpNotFound();
@@ -155,12 +155,12 @@ namespace eBook.Controllers
             return View(Product);
         }
 
-        // Product: Products/Delete/5
+        // Book: Products/Delete/5
         [HttpPost, ActionName("Delete")]
         [ValidateAntiForgeryToken]
         public ActionResult DeleteConfirmed(int id)
         {
-            Product Product = db.Products.Find(id);
+            Book Product = db.Products.Find(id);
             db.Products.Remove(Product);
             db.SaveChanges();
             return RedirectToAction("Index");
@@ -176,8 +176,8 @@ namespace eBook.Controllers
         //public ActionResult UsersByProductsAddressesQuery()
         //{
         //    var queryUsersProducts = from user in db.Users
-        //                             join Product in db.Products on user.Address equals Product.ProductedFrom
-        //                             select new { Address = user.Address, UserEmail = user.Email, ProductTitle = Product.Title };
+        //                             join Book in db.Products on user.Address equals Book.ProductedFrom
+        //                             select new { Address = user.Address, UserEmail = user.Email, ProductTitle = Book.Title };
 
         //    return Json(queryUsersProducts, JsonRequestBehavior.AllowGet);
         //}
@@ -188,8 +188,8 @@ namespace eBook.Controllers
         //public ActionResult UsersByProductsAddresses()
         //{
         //    var queryUsersProducts = from user in db.Users
-        //                             join Product in db.Products on user.Address equals Product.ProductedFrom
-        //                             select new { Address = user.Address, UserEmail = user.Email, ProductTitle = Product.Title };
+        //                             join Book in db.Products on user.Address equals Book.ProductedFrom
+        //                             select new { Address = user.Address, UserEmail = user.Email, ProductTitle = Book.Title };
 
         //    return PartialView("_UsersByProductsAddressesPartial", queryUsersProducts);
         //}
