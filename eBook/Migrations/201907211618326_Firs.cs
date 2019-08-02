@@ -18,11 +18,11 @@ namespace eBook.Migrations
                         Body = c.String(nullable: false, maxLength: 500),
                     })
                 .PrimaryKey(t => t.CommentId)
-                .ForeignKey("dbo.Products", t => t.ProductId, cascadeDelete: true)
+                .ForeignKey("dbo.Books", t => t.ProductId, cascadeDelete: true)
                 .Index(t => t.ProductId);
             
             CreateTable(
-                "dbo.Products",
+                "dbo.Books",
                 c => new
                     {
                         ProductId = c.Int(nullable: false, identity: true),
@@ -117,7 +117,7 @@ namespace eBook.Migrations
             DropForeignKey("dbo.AspNetUserLogins", "UserId", "dbo.AspNetUsers");
             DropForeignKey("dbo.AspNetUserClaims", "UserId", "dbo.AspNetUsers");
             DropForeignKey("dbo.AspNetUserRoles", "RoleId", "dbo.AspNetRoles");
-            DropForeignKey("dbo.Comments", "ProductId", "dbo.Products");
+            DropForeignKey("dbo.Comments", "ProductId", "dbo.Books");
             DropIndex("dbo.AspNetUserLogins", new[] { "UserId" });
             DropIndex("dbo.AspNetUserClaims", new[] { "UserId" });
             DropIndex("dbo.AspNetUsers", "UserNameIndex");
@@ -130,7 +130,7 @@ namespace eBook.Migrations
             DropTable("dbo.AspNetUsers");
             DropTable("dbo.AspNetUserRoles");
             DropTable("dbo.AspNetRoles");
-            DropTable("dbo.Products");
+            DropTable("dbo.Books");
             DropTable("dbo.Comments");
         }
     }

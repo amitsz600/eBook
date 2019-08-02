@@ -47,7 +47,7 @@ namespace eBook.Controllers
         // GET: Comments/Create
         public ActionResult Create()
         {
-            ViewBag.ProductId = new SelectList(db.Products, "PostId", "Title");
+            ViewBag.ProductId = new SelectList(db.Books, "PostId", "Title");
             return RedirectToAction("Index", "Posts");
         }
 
@@ -66,7 +66,7 @@ namespace eBook.Controllers
                 return RedirectToAction("Index", "Posts");
             }
 
-            ViewBag.PostId = new SelectList(db.Products, "ProductId", "Title", comment.ProductId);
+            ViewBag.PostId = new SelectList(db.Books, "ProductId", "Title", comment.ProductId);
             return RedirectToAction("Index", "Posts");
         }
 
@@ -82,7 +82,7 @@ namespace eBook.Controllers
             {
                 return HttpNotFound();
             }
-            ViewBag.productId = new SelectList(db.Products, "ProductId", "Title", comment.ProductId);
+            ViewBag.productId = new SelectList(db.Books, "ProductId", "Title", comment.ProductId);
             return View(comment);
         }
 
@@ -99,7 +99,7 @@ namespace eBook.Controllers
                 db.SaveChanges();
                 return RedirectToAction("Index");
             }
-            ViewBag.PostId = new SelectList(db.Products, "ProductId", "Title", comment.ProductId);
+            ViewBag.PostId = new SelectList(db.Books, "ProductId", "Title", comment.ProductId);
             return View(comment);
         }
 

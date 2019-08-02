@@ -12,7 +12,7 @@ namespace eBook.DAL
     {
         public DbSet<Comment> Comments { get; set; }
 
-        public DbSet<Book> Products { get; set; }
+        public DbSet<Book> Books { get; set; }
 
         public static SiteContext Create()
         {

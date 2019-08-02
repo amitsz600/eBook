@@ -34,7 +34,7 @@
             //      new Person { FullName = "Rowan Miller" }
             //    );
             //
-            context.Products.AddOrUpdate(
+            context.Books.AddOrUpdate(
                 p => p.ProductId,
                 new Models.Book()
                 {

@@ -7,12 +7,12 @@ namespace eBook.Migrations
     {
         public override void Up()
         {
-            RenameTable(name: "dbo.Products", newName: "Books");
+            RenameTable(name: "dbo.Books", newName: "Books");
         }
         
         public override void Down()
         {
-            RenameTable(name: "dbo.Books", newName: "Products");
+            RenameTable(name: "dbo.Books", newName: "Books");
         }
     }
 }

@@ -13,7 +13,7 @@
 
 
     <div class="row">
-        @using (Html.BeginForm("Index", "Products", FormMethod.Get, new { @class = "col-md-4" }))
+        @using (Html.BeginForm("Index", "Books", FormMethod.Get, new { @class = "col-md-4" }))
         {
             <h3>Filter Books</h3>
             <div class="form-group">
@@ -49,8 +49,8 @@
     </div>
 <hr />
 
-@*Display all the products*@
-<div id="products">
+@*Display all the books*@
+<div id="books">
     @foreach (var item in Model)
     {
         <section class="row">
