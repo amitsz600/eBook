@@ -282,9 +282,11 @@
     <Content Include="Scripts\popper-utils.js.map" />
     <Content Include="Views\Users\Register.cshtml" />
     <Content Include="Views\Users\List.cshtml" />
+    <Content Include="Views\Users\Update.cshtml" />
   </ItemGroup>
   <ItemGroup>
     <Folder Include="App_Data\" />
+    <Folder Include="Views\Update\" />
   </ItemGroup>
   <ItemGroup>
     <None Include="packages.config" />
