@@ -48,7 +48,7 @@ namespace eBook.Controllers
         public ActionResult Create()
         {
             ViewBag.ProductId = new SelectList(db.Books, "PostId", "Title");
-            return RedirectToAction("Index", "Posts");
+            return RedirectToAction("Index", "Books");
         }
 
         // POST: Comments/Create
@@ -63,11 +63,11 @@ namespace eBook.Controllers
             {
                 db.Comments.Add(comment);
                 db.SaveChanges();
-                return RedirectToAction("Index", "Posts");
+                return RedirectToAction("Index", "Books");
             }
 
             ViewBag.PostId = new SelectList(db.Books, "ProductId", "Title", comment.ProductId);
-            return RedirectToAction("Index", "Posts");
+            return RedirectToAction("Index", "Books");
         }
 
         // GET: Comments/Edit/5
