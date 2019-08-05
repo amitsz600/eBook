@@ -2,6 +2,7 @@
 @using Microsoft.AspNet.Identity
 @using eBook.Controllers
 @using eBook.Models
+@using eBook.App_Start
 @model IEnumerable<eBook.Models.Book>
 @{
     ViewBag.Title = "Index";
@@ -9,44 +10,46 @@
 }
 
 @*Add New book *@
-@Html.ActionLink("Add New Book", "Create")
+@if (User.IsInRole(IdentityConfigGlobals.MANAGER_ROLE))
+{
+    @Html.ActionLink("Add New Book", "Create")
+}
 
+<div class="row">
+    @using (Html.BeginForm("Index", "Books", FormMethod.Get, new { @class = "col-md-4" }))
+    {
+        <h3>Filter Books</h3>
+        <div class="form-group">
+            <label for="title-filter">Title: </label>
+            <input class="form-control" type="text" name="title" id="title-filter">
+        </div>
+        <div class="form-group">
+            <label for="author-filter">Author: </label>
+            <input class="form-control" type="text" name="author" id="author-filter">
+        </div>
+        <div class="form-group">
+            <label for="author-filter">genre: </label>
+            <input class="form-control" type="text" name="genre" id="genre-filter">
+        </div>
+        <div class="form-group">
+            <label for="author-filter">publisher: </label>
+            <input class="form-control" type="text" name="publisher" id="publisher-filter">
+        </div>
+        <div class="form-group">
+            <input class="form-control btn btn-success" type="submit" value="Filter books">
+        </div>
+    }
 
-    <div class="row">
-        @using (Html.BeginForm("Index", "Books", FormMethod.Get, new { @class = "col-md-4" }))
-        {
-            <h3>Filter Books</h3>
-            <div class="form-group">
-                <label for="title-filter">Title: </label>
-                <input class="form-control" type="text" name="title" id="title-filter">
-            </div>
-            <div class="form-group">
-                <label for="author-filter">Author: </label>
-                <input class="form-control" type="text" name="author" id="author-filter">
-            </div>
-            <div class="form-group">
-                <label for="author-filter">gener: </label>
-                <input class="form-control" type="text" name="genre" id="genre-filter">
-            </div>
-            <div class="form-group">
-                <label for="author-filter">publisher: </label>
-                <input class="form-control" type="text" name="publisher" id="publisher-filter">
-            </div>
-            <div class="form-group">
-                <input class="form-control btn btn-success" type="submit" value="Filter books">
-            </div>
-        }
-
-        <div class="col-md-3"></div>
-        <div class="col-md-4">
-            <h5>
-                Recommended books (Most Liked)
-            </h5>
-            <div class="popular">
-                There are no recommended books at the moment
-            </div>
+    <div class="col-md-3"></div>
+    <div class="col-md-4">
+        <h5>
+            Recommended books (Most Liked)
+        </h5>
+        <div class="popular">
+            There are no recommended books at the moment
         </div>
     </div>
+</div>
 <hr />
 
 @*Display all the books*@
@@ -55,9 +58,8 @@
     {
         <section class="row">
             <article>
-                <header>
-                </header>
-                   
+                <header></header>
+
             </article>
         </section>
         <br>

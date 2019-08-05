@@ -24,7 +24,7 @@ namespace eBook.Controllers
 
         #endregion
 
-        #region CTOR
+        #region CTOR 
 
         public UsersController()
         {
@@ -78,7 +78,7 @@ namespace eBook.Controllers
                 var userManager = HttpContext.GetOwinContext().GetUserManager<ApplicationUserManager>();
                 var authManager = HttpContext.GetOwinContext().Authentication;
 
-                User user = userManager.Find(login.Email, login.Password);
+                User user = userManager.Find(login.UserName, login.Password);
                 if (user != null)
                 {
                     var ident = userManager.CreateIdentity(user,
@@ -111,7 +111,7 @@ namespace eBook.Controllers
             {
                 var user = new User
                 {
-                    UserName = model.Email,
+                    UserName = model.UserName,
                     Email = model.Email,
                     Birthday = model.Birthday,
                     Address = model.Address
@@ -220,7 +220,7 @@ namespace eBook.Controllers
         //POST: /Users/Search/id
         [HttpGet]
         [Authorize(Roles = IdentityConfigGlobals.MANAGER_ROLE)]
-        public ActionResult Search(string Email, DateTime? FromDate, DateTime? ToDate, string Address)
+        public ActionResult Search(string Email, DateTime? FromDate, DateTime? ToDate, string Address, string UserName)
         {
             // Init dates to min and max if nulls
             if (FromDate == null)
@@ -239,6 +239,7 @@ namespace eBook.Controllers
                                    where (user.Email.Contains(Email))
                                    where ((user.Birthday >= FromDate) && (user.Birthday <= ToDate))
                                    where (user.Address.Contains(Address))
+                                   where (user.UserName.Contains(UserName))
                                    select user;
 
             return View("List", UsersFilterQuery);
