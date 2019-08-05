@@ -19,11 +19,17 @@ namespace eBook.Controllers
 
         // GET: Books
         public ActionResult Index(
+            string title,
             string genre,
             string publisher,
             string author)
         {
             IQueryable<Book> query = db.Books;
+
+            if (!string.IsNullOrEmpty(title))
+            {
+                query = query.Where(p => p.Author.Contains(title));
+            }
 
             if (!string.IsNullOrEmpty(author))
             {
@@ -137,7 +143,7 @@ namespace eBook.Controllers
         // more details see https://go.microsoft.com/fwlink/?LinkId=317598.
         [HttpPost]
         [ValidateAntiForgeryToken]
-        public ActionResult Edit([Bind(Include = "ProductId,Title,Author,Site,Date,Body,Image,Video")] Book book)
+        public ActionResult Edit([Bind(Include = "ProductId,Title,Author,Price,Description,genre,Image,publisher,TwitterWidgets")] Book book)
         { 
             if (ModelState.IsValid)
             {

@@ -59,7 +59,8 @@
         <section class="row">
             <article>
                 <header></header>
-
+                @Html.DisplayFor(modelItem => item.Title)
+                @Html.ActionLink("Details", "Details", new { id = item.ProductId })
             </article>
         </section>
         <br>

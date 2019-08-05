@@ -1,0 +1,86 @@
+﻿@model eBook.Models.Book
+
+@{
+    ViewBag.Title = @Html.DisplayFor(model => model.Title);
+    Layout = "~/Views/Shared/_Layout.cshtml";
+}
+
+<div>
+    <h4>@Html.DisplayFor(model => model.Title)'s Details</h4>
+    <hr />
+    <dl class="dl-horizontal">
+
+        <dd>
+            @Html.DisplayFor(model => model.Title)
+        </dd>
+
+        <dt>
+            @Html.DisplayNameFor(model => model.Author)
+        </dt>
+
+        <dd>
+            @Html.DisplayFor(model => model.Author)
+        </dd>
+
+        <dt>
+            @Html.DisplayNameFor(model => model.Price)
+        </dt>
+
+        <dd>
+            @Html.DisplayFor(model => model.Price)
+        </dd>
+
+        <dt>
+            @Html.DisplayNameFor(model => model.genre)
+        </dt>
+
+        <dd>
+            @Html.DisplayFor(model => model.genre)
+        </dd>
+
+        <dt>
+            @Html.DisplayNameFor(model => model.publisher)
+        </dt>
+
+        <dd>
+            @Html.DisplayFor(model => model.publisher)
+        </dd>
+
+        @if (!string.IsNullOrWhiteSpace(Model.Image))
+        {
+            <dt>
+                @Html.DisplayNameFor(model => model.Image)
+            </dt>
+
+            <dd>
+                @Html.DisplayFor(model => model.Image)
+            </dd>
+        }
+
+        @if (!string.IsNullOrWhiteSpace(Model.Video))
+        {
+            <dt>
+                @Html.DisplayNameFor(model => model.Video)
+            </dt>
+
+
+            <dd>
+                @Html.DisplayFor(model => model.Video)
+            </dd>
+        }
+
+        @if (!string.IsNullOrWhiteSpace(Model.TwitterWidgets))
+        {
+            <dt>
+                @Html.DisplayNameFor(model => model.TwitterWidgets)
+            </dt>
+            <dd>
+                @Html.Raw(@Model.TwitterWidgets.ToString())
+            </dd>
+        }
+    </dl>
+</div>
+<p>
+    @Html.ActionLink("Edit", "Edit", new { id = Model.ProductId })
+    @Html.ActionLink("Delete", "Delete", new { id = Model.ProductId })
+</p>
