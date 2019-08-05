@@ -5,3 +5,8 @@
 .ebook-navbar {
     margin-bottom: 10px;
 }
+
+.book-pic {
+    border-radius: 3px;
+    width:100px;
+}
