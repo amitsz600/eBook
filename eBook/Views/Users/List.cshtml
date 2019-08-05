@@ -4,37 +4,44 @@
     Layout = "~/Views/Shared/_Layout.cshtml";
 }
 
-<div class="row">
-    @using (Html.BeginForm("Search", "Users", FormMethod.Get))
-    {
-        <h3>Filter Users</h3>
-        <div class="form-group">
-            <label for="from-date-filter">From:</label>
-            <input type="date" name="fromDate" id="from-date-filter" class="form-control">
-        </div>
-        <div class="form-group">
-            <label for="to-date-filter">To:</label>
-            <input type="date" name="toDate" id="to-date-filter" class="form-control">
-        </div>
-        <div class="form-group">
-            <label for="email-filter">Email: </label>
-            <input type="text" name="email" id="email-filter" class="form-control">
-        </div>
-        <div class="form-group">
-            <label for="address-filter">Address:</label>
-            <input type="text" name="address" id="address-filter" class="form-control">
-        </div>
+    <div class="row">
+        @using (Html.BeginForm("Search", "Users", FormMethod.Get))
+        {
+            <h3>Filter Users</h3>
+            <div class="form-group">
+                <label for="username-filter">Username:</label>
+                <input type="text" name="username" id="username-filter" class="form-control">
+            </div>
+            <div class="form-group">
+                <label for="from-date-filter">Birthday From:</label>
+                <input type="date" name="fromDate" id="from-date-filter" class="form-control">
+            </div>
+            <div class="form-group">
+                <label for="to-date-filter">Birthday To:</label>
+                <input type="date" name="toDate" id="to-date-filter" class="form-control">
+            </div>
+            <div class="form-group">
+                <label for="email-filter">Email: </label>
+                <input type="text" name="email" id="email-filter" class="form-control">
+            </div>
+            <div class="form-group">
+                <label for="address-filter">Address:</label>
+                <input type="text" name="address" id="address-filter" class="form-control">
+            </div>
 
-        <div class="form-group">
-            <input type="submit" value="Save" class="btn btn-success form-control" />
-        </div>
-    }
-</div>
+            <div class="form-group">
+                <input type="submit" value="Save" class="btn btn-success form-control" />
+            </div>
+        }
+    </div>
 
 <div class="row">
     <table class="table table-hover users-table">
         <thead class="thead-inverse">
             <tr>
+                <th>
+                    @Html.DisplayNameFor(modelItem => modelItem.UserName)
+                </th>
                 <th>
                     @Html.DisplayNameFor(modelItem => modelItem.Email)
                 </th>
@@ -50,22 +57,23 @@
         <tbody>
             @foreach (var user in Model)
             {
-                <tr>
-                    <td>@Html.DisplayFor(modelItem => user.Email)</td>
-                    <td>@Html.DisplayFor(modelItem => user.Address)</td>
-                    <td>@Html.DisplayFor(modelItem => user.Birthday)</td>
-                    <td>
-                    <td>
-                        <a href="@Url.Action("Update", "Users", new {id = user.Id})" title="Edit">
-                            <i class="fa fa fa-pencil fa-4"></i>
-                        </a>
-                        |
-                        <a href="@Url.Action("Remove", "Users", new {id = user.Id})" title="Delete">
-                            <i class="fa fa-trash-o fa-4"></i>
-                        </a>
-                    </td>
-                    </td>
-                </tr>
+            <tr>
+                <td>@Html.DisplayFor(modelItem => user.UserName)</td>
+                <td>@Html.DisplayFor(modelItem => user.Email)</td>
+                <td>@Html.DisplayFor(modelItem => user.Address)</td>
+                <td>@Html.DisplayFor(modelItem => user.Birthday)</td>
+                <td>
+                <td>
+                    <a href="@Url.Action("Update", "Users", new {id = user.Id})" title="Edit">
+                        <i class="fa fa fa-pencil fa-4"></i>
+                    </a>
+                    |
+                    <a href="@Url.Action("Remove", "Users", new {id = user.Id})" title="Delete">
+                        <i class="fa fa-trash-o fa-4"></i>
+                    </a>
+                </td>
+                </td>
+            </tr>
             }
         </tbody>
     </table>
