@@ -184,10 +184,6 @@
     <Compile Include="Migrations\201908021349523_Rename.Designer.cs">
       <DependentUpon>201908021349523_Rename.cs</DependentUpon>
     </Compile>
-    <Compile Include="Migrations\201908051414380_Sec.cs" />
-    <Compile Include="Migrations\201908051414380_Sec.Designer.cs">
-      <DependentUpon>201908051414380_Sec.cs</DependentUpon>
-    </Compile>
     <Compile Include="Migrations\Configuration.cs" />
     <Compile Include="Models\Comment.cs" />
     <Compile Include="Models\Book.cs" />
@@ -292,6 +288,11 @@
     <Content Include="Views\Books\Details.cshtml" />
     <Content Include="Views\Books\Edit.cshtml" />
     <Content Include="Views\Books\Delete.cshtml" />
+    <Content Include="Views\Comments\Create.cshtml" />
+    <Content Include="Views\Comments\Delete.cshtml" />
+    <Content Include="Views\Comments\Details.cshtml" />
+    <Content Include="Views\Comments\Edit.cshtml" />
+    <Content Include="Views\Comments\Index.cshtml" />
   </ItemGroup>
   <ItemGroup>
     <Folder Include="App_Data\" />
@@ -306,9 +307,6 @@
     </EmbeddedResource>
     <EmbeddedResource Include="Migrations\201908021349523_Rename.resx">
       <DependentUpon>201908021349523_Rename.cs</DependentUpon>
-    </EmbeddedResource>
-    <EmbeddedResource Include="Migrations\201908051414380_Sec.resx">
-      <DependentUpon>201908051414380_Sec.cs</DependentUpon>
     </EmbeddedResource>
   </ItemGroup>
   <ItemGroup>

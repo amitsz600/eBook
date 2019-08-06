@@ -1,0 +1,62 @@
+﻿@model IEnumerable<eBook.Models.Comment>
+
+@{
+    Layout = null;
+}
+
+<h2>Comments</h2>
+
+<p>
+    @Html.ActionLink("Create Comment", "Create")
+</p>
+
+<table class="table table-hover comments-table">
+    <thead class="thead-inverse">
+    <tr>
+        <th>
+            Post
+            @Html.DisplayNameFor(model => model.RelatedProduct.Title)
+        </th>
+        <th>
+            Comment
+            @Html.DisplayNameFor(model => model.Title)
+        </th>
+        <th>
+            @Html.DisplayNameFor(model => model.Author)
+        </th>
+        <th>
+            @Html.DisplayNameFor(model => model.Body)
+        </th>
+        <th>
+
+        </th>
+    </tr>
+    </thead>
+    <tbody>
+    @foreach (var item in Model)
+    {
+        <tr>
+            <td>
+                @Html.DisplayFor(modelItem => item.RelatedProduct.Title)
+            </td>
+            <td>
+                @Html.DisplayFor(modelItem => item.Title)
+            </td>
+            <td>
+                @Html.DisplayFor(modelItem => item.Author)
+            </td>
+            <td>
+                @Html.DisplayFor(modelItem => item.Body)
+            </td>
+            <td>
+                @Html.ActionLink("Edit", "Edit", new {id = item.CommentId}) |
+                @Html.ActionLink("Details", "Details", new {id = item.CommentId}) |
+                @Html.ActionLink("Delete", "Delete", new {id = item.CommentId})
+            </td>
+        </tr>
+    }
+    </tbody>
+
+
+</table>
+

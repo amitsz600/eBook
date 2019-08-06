@@ -1,0 +1,58 @@
+﻿@model eBook.Models.Comment
+
+@{
+    ViewBag.Title = "Create";
+    Layout = string.Empty;
+}
+
+<div class="row">
+@using (Html.BeginForm())
+    {
+        @Html.AntiForgeryToken()
+
+        <hr/>
+        <h6>Add Comment</h6>
+        
+        <div class="form-group">
+            @Html.LabelFor(model => model.Title, htmlAttributes: new {@class = "control-label"})
+            @Html.EditorFor(model => model.Title, new {htmlAttributes = new {@class = "form-control"}})
+            @Html.ValidationMessageFor(model => model.Title, "", new {@class = "text-danger"})
+        </div>
+
+        <div class="form-group">
+            @Html.LabelFor(model => model.Author, htmlAttributes: new {@class = "control-label"})
+            @Html.EditorFor(model => model.Author, new {htmlAttributes = new {@class = "form-control"}})
+            @Html.ValidationMessageFor(model => model.Author, "", new {@class = "text-danger"})
+        </div>
+
+        <div class="form-group">
+            @Html.LabelFor(model => model.Site, htmlAttributes: new {@class = "control-label"})
+            @Html.EditorFor(model => model.Site, new {htmlAttributes = new {@class = "form-control"}})
+            @Html.ValidationMessageFor(model => model.Site, "", new {@class = "text-danger"})
+        </div>
+
+        <div class="form-group">
+            @Html.LabelFor(model => model.Body, htmlAttributes: new {@class = "control-label"})
+            @Html.EditorFor(model => model.Body, new {htmlAttributes = new {@class = "form-control"}})
+            @Html.ValidationMessageFor(model => model.Body, "", new {@class = "text-danger"})
+        </div>
+
+
+        <div class="form-group">
+            <input
+                type="submit"
+                value="Add Comment"
+                class="btn btn-info"
+                formaction='@Url.Action("Create", "Comments", new eBook.Models.Comment()
+                            {
+                                Author = Model.Author,
+                                PostId = Model.PostId,
+                                Body = Model.Body,
+                                CommentId = Model.CommentId,
+                                Site = Model.Site,
+                                Title = Model.Title
+                            })'/>
+        </div>
+    }
+</div>
+<hr/>

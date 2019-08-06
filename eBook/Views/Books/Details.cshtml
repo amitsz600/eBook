@@ -105,3 +105,49 @@
     }
 
 </p>
+
+<table id="tblStudent" class="table table-bordered table-striped table-responsive table-hover">
+    <tbody></tbody>
+</table>
+
+<div id="comments">
+
+</div>
+
+@Scripts.Render("~/bundles/modernizr")
+@Scripts.Render("~/bundles/jquery")
+@Scripts.Render("~/bundles/bootstrap")
+@Scripts.Render("~/bundles/d3")
+
+<script type="text/javascript">
+    $(function () {
+        LoadData();
+    });
+
+    function LoadData() {
+        $.ajax({
+            type: 'GET',
+            url: 'https://localhost:44357/Comments',
+            dataType: 'html',
+            data: { id: '' },
+            success: function (data) {
+                var items = '';
+                $('#comments').append(data);
+/*                $.each(data, function (i, item) {
+                    var rows = "<tr>"
+                        + "<td>" + item.Author + "</td>"
+                        + "<td>" + item.body + "</td>"
+                        + "</tr>";
+                    $('#tblStudent tbody').append(rows);
+                });*/
+            },
+            error: function (ex) {
+                var r = jQuery.parseJSON(response.responseText);
+                alert("Message: " + r.Message);
+                alert("StackTrace: " + r.StackTrace);
+                alert("ExceptionType: " + r.ExceptionType);
+            }
+        });
+        return false;
+    }
+</script>  
