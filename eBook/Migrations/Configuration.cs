@@ -52,18 +52,7 @@
                 }
                );
 
-            context.Comments.AddOrUpdate(
-                c => c.CommentId,
-                new Comment()
-                {
-                    CommentId = 1,
-                    Author = "aaa@mail.com",
-                    Body = "Good One!",
-                    ProductId = 1,
-                    Rating = 5,
-                    Title = "I Really Liked It"
-                }
-            );
+            
 
 
 
@@ -106,6 +95,20 @@
                 manager.Create(user, "12341234");
                 manager.AddToRole(user.Id, IdentityConfigGlobals.USER_ROLE);
             }
+
+            context.Comments.AddOrUpdate(
+                c => c.CommentId,
+                new Comment()
+                {
+                    CommentId = 1,
+                    Author = "member",
+                    Body = "Good One!",
+                    ProductId = 1,
+                    Rating = 5,
+                    Title = "I Really Liked It",
+                    date = new DateTime(2017,1,1)
+                }
+            );
         }
     }
 }
