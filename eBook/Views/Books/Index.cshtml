@@ -4,20 +4,20 @@
 @using eBook.Models
 @using eBook.App_Start
 @model IEnumerable<eBook.Models.Book>
-@{
+    @{
     ViewBag.Title = "Index";
     Layout = "~/Views/Shared/_Layout.cshtml";
-}
+    }
 
-@*Add New book *@
-@if (User.IsInRole(IdentityConfigGlobals.MANAGER_ROLE))
-{
-    @Html.ActionLink("Add New Book", "Create")
-}
-
-<div class="row">
-    @using (Html.BeginForm("Index", "Books", FormMethod.Get, new { @class = "col-md-4" }))
+    @*Add New book *@
+    @if (User.Identity.IsAuthenticated)
     {
+        @Html.ActionLink("Add New Book", "Create")
+    }
+
+    <div class="row">
+        @using (Html.BeginForm("Index", "Books", FormMethod.Get, new { @class = "col-md-4" }))
+        {
         <h3>Filter Books</h3>
         <div class="form-group">
             <label for="title-filter">Title: </label>
@@ -38,24 +38,24 @@
         <div class="form-group">
             <input class="form-control btn btn-success" type="submit" value="Filter books">
         </div>
-    }
+        }
 
-    <div class="col-md-3"></div>
-    <div class="col-md-4">
-        <h5>
-            Recommended books (Most Liked)
-        </h5>
-        <div class="popular">
-            There are no recommended books at the moment
+        <div class="col-md-3"></div>
+        <div class="col-md-4">
+            <h5>
+                Recommended books (Most Liked)
+            </h5>
+            <div class="popular">
+                There are no recommended books at the moment
+            </div>
         </div>
     </div>
-</div>
-<hr />
+    <hr />
 
-@*Display all the books*@
-<div id="books">
-    @foreach (var item in Model)
-    {
+    @*Display all the books*@
+    <div id="books">
+        @foreach (var item in Model)
+        {
         <section class="row">
             <article>
                 <header></header>
@@ -64,5 +64,5 @@
             </article>
         </section>
         <br>
-    }
-</div>
+        }
+    </div>
