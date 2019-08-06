@@ -192,6 +192,10 @@
     <Compile Include="Migrations\201908061728178_fourth.Designer.cs">
       <DependentUpon>201908061728178_fourth.cs</DependentUpon>
     </Compile>
+    <Compile Include="Migrations\201908061846385_fif.cs" />
+    <Compile Include="Migrations\201908061846385_fif.Designer.cs">
+      <DependentUpon>201908061846385_fif.cs</DependentUpon>
+    </Compile>
     <Compile Include="Migrations\Configuration.cs" />
     <Compile Include="Models\Comment.cs" />
     <Compile Include="Models\Book.cs" />
@@ -316,6 +320,9 @@
     </EmbeddedResource>
     <EmbeddedResource Include="Migrations\201908061728178_fourth.resx">
       <DependentUpon>201908061728178_fourth.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Migrations\201908061846385_fif.resx">
+      <DependentUpon>201908061846385_fif.cs</DependentUpon>
     </EmbeddedResource>
   </ItemGroup>
   <ItemGroup>

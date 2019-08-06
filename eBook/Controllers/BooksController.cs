@@ -187,20 +187,20 @@ namespace eBook.Controllers
         //    return Json(queryUsersProducts, JsonRequestBehavior.AllowGet);
         //}
 
-        [HttpGet]
-        public ActionResult LikedBooks(string user)
-        {
-            var User = db.Users.Where(x => x.UserName.Equals(user));
-            var books = (from t in db.Comments
-                         join bb in db.Books on t.ProductId equals bb.ProductId
-                         where t.Author == ((User)User).UserName
-                            orderby t.Rating
-                            select t).Take(3);
+        //[HttpGet]
+        //public ActionResult LikedBooks(string user)
+        //{
+        //    var User = db.Users.Where(x => x.UserName.Equals(user));
+        //    var books = (from t in db.Comments
+        //                 join bb in db.Books on t.ProductId equals bb.ProductId
+        //                 where t.Author == ((User)User).UserName
+        //                    orderby t.Rating
+        //                    select t).Take(3);
 
-            //return Json(queryUsersProducts, JsonRequestBehavior.AllowGet);
+        //    //return Json(queryUsersProducts, JsonRequestBehavior.AllowGet);
 
-            return null;
-        }
+        //    return null;
+        //}
 
 
         //[HttpGet]

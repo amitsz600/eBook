@@ -44,6 +44,10 @@ namespace eBook.Models
         [DataType(DataType.Text)]
         public int Rating;
 
+        [Required]
+        [DataType(DataType.Date)]
+        public DateTime date;
+
         [ForeignKey("ProductId")]
         public virtual Book RelatedProduct { get; set; }
 

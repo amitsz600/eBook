@@ -105,7 +105,8 @@
                     Body = "Good One!",
                     ProductId = 1,
                     Rating = 5,
-                    Title = "I Really Liked It"
+                    Title = "I Really Liked It",
+                    date = new DateTime(2017,1,1)
                 }
             );
         }
