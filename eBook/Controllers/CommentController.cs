@@ -15,7 +15,7 @@ namespace eBook.Controllers
         private SiteContext db = new SiteContext();
 
         // GET: Comments
-        public ActionResult Index(int? ProductId)
+        public ActionResult Index(int? ProductId, string Author)
         {
             var comments = db.Comments;
 
@@ -24,6 +24,10 @@ namespace eBook.Controllers
                 comments.Where(x => x.ProductId == ProductId);
             }
 
+            if(Author != "")
+            {
+                comments.Where(x => x.Author.Equals(Author));
+            }
             comments.Include(c => c.RelatedProduct);
 
             return View(comments.ToList());
@@ -56,7 +60,7 @@ namespace eBook.Controllers
         // more details see https://go.microsoft.com/fwlink/?LinkId=317598.
         [HttpPost]
         [ValidateAntiForgeryToken]
-        public ActionResult Create([Bind(Include = "CommentId,ProductId,Title,Author,Site,Body")] Comment comment, int ProductId)
+        public ActionResult Create([Bind(Include = "CommentId,ProductId,Title,Author,Body,Rating")] Comment comment, int ProductId)
         {
             comment.ProductId = ProductId;
             if (ModelState.IsValid)
@@ -91,7 +95,7 @@ namespace eBook.Controllers
         // more details see https://go.microsoft.com/fwlink/?LinkId=317598.
         [HttpPost]
         [ValidateAntiForgeryToken]
-        public ActionResult Edit([Bind(Include = "CommentId,PostId,Title,Author,Site,Body")] Comment comment)
+        public ActionResult Edit([Bind(Include = "CommentId,PostId,Title,Author,Body,Rating")] Comment comment)
         {
             if (ModelState.IsValid)
             {

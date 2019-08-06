@@ -186,9 +186,9 @@ namespace eBook.Controllers
             return PartialView("_UsersByProductsAddressesPartial");
         }
 
-        //[HttpGet]
+        [HttpGet]
         //public ActionResult UsersByProductsAddressesQuery()
-        //{
+        //{ii
         //    var queryUsersProducts = from user in db.Users
         //                             join Book in db.Books on user.Address equals Book.ProductedFrom
         //                             select new { Address = user.Address, UserEmail = user.Email, ProductTitle = Book.Title };
@@ -196,6 +196,20 @@ namespace eBook.Controllers
         //    return Json(queryUsersProducts, JsonRequestBehavior.AllowGet);
         //}
 
+        [HttpGet]
+        public ActionResult LikedBooks(string user)
+        {
+            var User = db.Users.Where(x => x.UserName.Equals(user));
+            var books = (from t in db.Comments
+                         join bb in db.Books on t.ProductId equals bb.ProductId
+                         where t.Author == ((User)User).UserName
+                            orderby t.Rating
+                            select t).Take(3);
+
+            //return Json(queryUsersProducts, JsonRequestBehavior.AllowGet);
+
+            return null;
+        }
 
 
         //[HttpGet]

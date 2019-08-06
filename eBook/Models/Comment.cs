@@ -40,10 +40,15 @@ namespace eBook.Models
         [StringLength(500, MinimumLength = 3)]
         public string Body { get; set; }
 
+        [Required]
+        [DataType(DataType.Text)]
         public int Rating;
 
         [ForeignKey("ProductId")]
         public virtual Book RelatedProduct { get; set; }
+
+        //[ForeignKey("Author")]
+        //public virtual User user { get; set; }
 
     }
 }
