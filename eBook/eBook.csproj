@@ -184,18 +184,6 @@
     <Compile Include="Migrations\201908021349523_Rename.Designer.cs">
       <DependentUpon>201908021349523_Rename.cs</DependentUpon>
     </Compile>
-    <Compile Include="Migrations\201908061713220_tird.cs" />
-    <Compile Include="Migrations\201908061713220_tird.Designer.cs">
-      <DependentUpon>201908061713220_tird.cs</DependentUpon>
-    </Compile>
-    <Compile Include="Migrations\201908061728178_fourth.cs" />
-    <Compile Include="Migrations\201908061728178_fourth.Designer.cs">
-      <DependentUpon>201908061728178_fourth.cs</DependentUpon>
-    </Compile>
-    <Compile Include="Migrations\201908061846385_fif.cs" />
-    <Compile Include="Migrations\201908061846385_fif.Designer.cs">
-      <DependentUpon>201908061846385_fif.cs</DependentUpon>
-    </Compile>
     <Compile Include="Migrations\Configuration.cs" />
     <Compile Include="Models\Comment.cs" />
     <Compile Include="Models\Book.cs" />
@@ -314,15 +302,6 @@
     </EmbeddedResource>
     <EmbeddedResource Include="Migrations\201908021349523_Rename.resx">
       <DependentUpon>201908021349523_Rename.cs</DependentUpon>
-    </EmbeddedResource>
-    <EmbeddedResource Include="Migrations\201908061713220_tird.resx">
-      <DependentUpon>201908061713220_tird.cs</DependentUpon>
-    </EmbeddedResource>
-    <EmbeddedResource Include="Migrations\201908061728178_fourth.resx">
-      <DependentUpon>201908061728178_fourth.cs</DependentUpon>
-    </EmbeddedResource>
-    <EmbeddedResource Include="Migrations\201908061846385_fif.resx">
-      <DependentUpon>201908061846385_fif.cs</DependentUpon>
     </EmbeddedResource>
   </ItemGroup>
   <ItemGroup>
