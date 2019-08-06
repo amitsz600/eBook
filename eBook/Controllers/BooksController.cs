@@ -102,19 +102,10 @@ namespace eBook.Controllers
         [ValidateAntiForgeryToken]
         [ValidateInput(false)]
         [Authorize(Roles = IdentityConfigGlobals.MANAGER_ROLE + "," + IdentityConfigGlobals.USER_ROLE)]
-        public ActionResult Create([Bind(Include = "Title,Author,Price,Description,genre,Image,publisher,TwitterWidgets")] Book book)
+        public ActionResult Create([Bind(Include = "ProductId,Title,Author,Price,Description,genre,Image,publisher,TwitterWidgets")] Book book)
         {
             if (ModelState.IsValid)
             {
-                try
-                {
-                    book.ProductId = db.Books.Max(p => p.ProductId) + 1;
-                }
-                catch (Exception e)
-                {
-                    book.ProductId = 0;
-                }
-
                 db.Books.Add(book);
                 db.SaveChanges();
                 return RedirectToAction("Index");
