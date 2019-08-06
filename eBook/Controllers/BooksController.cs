@@ -28,7 +28,7 @@ namespace eBook.Controllers
 
             if (!string.IsNullOrEmpty(title))
             {
-                query = query.Where(p => p.Author.Contains(title));
+                query = query.Where(p => p.Title.Contains(title));
             }
 
             if (!string.IsNullOrEmpty(author))
