@@ -95,7 +95,7 @@ namespace eBook.Controllers
 
             IQueryable booksFromFavoriteGenres; 
 
-            if (favoriteGenre.Genre.Equals(""))
+            if (!favoriteGenre.Genre.Equals(""))
             {
                 booksFromFavoriteGenres = (from book in db.Books
                                            where book.genre == favoriteGenre.Genre
