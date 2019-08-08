@@ -50,29 +50,6 @@ namespace eBook.Controllers
             return View(query.ToList());
         }
 
-
-        //[Authorize(Roles = IdentityConfigGlobals.MANAGER_ROLE)]
-        //public ActionResult Manager()
-        //{
-        //    var groupQuery = from Book in db.Books
-        //                     group Book by Book.Category into ProductGroup
-        //                     orderby ProductGroup.Key
-        //                     select ProductGroup;
-
-        //    return View(groupQuery);
-        //}
-
-        //public ActionResult GetGroupsByCategories()
-        //{
-        //    var groupQuery = from Book in db.Books
-        //                     group Book by Book.Category into ProductGroup
-        //                     orderby ProductGroup.Key
-        //                     //select new { Count=ProductGroup.Count(), Category=ProductGroup.First().Category };
-        //                     select new { Count = ProductGroup.Count(), Category = ProductGroup.FirstOrDefault().Category };
-
-        //    return Json(groupQuery, JsonRequestBehavior.AllowGet);
-        //}
-
         // GET: Books/Details/5
         public ActionResult Details(int? id)
         {
@@ -86,6 +63,73 @@ namespace eBook.Controllers
                 return HttpNotFound();
             }
             return View(book);
+        }
+
+
+        // GET: Books/Favorites
+        public ActionResult Favorites(String username)
+        {
+            if (username == null)
+            {
+                return new HttpStatusCodeResult(HttpStatusCode.OK);
+            }
+
+            var favoriteGenres = from book in db.Books
+                                 join comment in db.Comments on book.ProductId equals comment.ProductId
+                                 where comment.Author == username
+                                 group comment by new { book.genre } into grouped
+                                 select new
+                                 {
+                                     Genre = grouped.Key.genre,
+                                     NumberOfComments = grouped.Count()
+                                 };
+            var favoriteGenre = new {Genre= "", NumberOfComments = -1 };
+
+            foreach (var genreAndNumberOfComments in favoriteGenres)
+            {
+                if (genreAndNumberOfComments.NumberOfComments > favoriteGenre.NumberOfComments)
+                {
+                    favoriteGenre = genreAndNumberOfComments;
+                }
+            }
+
+            IQueryable booksFromFavoriteGenres; 
+
+            if (!favoriteGenre.Genre.Equals(""))
+            {
+                booksFromFavoriteGenres = (from book in db.Books
+                                           where book.genre == favoriteGenre.Genre
+                                           join comment in db.Comments on book.ProductId equals comment.ProductId
+                                           group comment by new { book.ProductId, book.Title, book.Author, book.Image } into grouped
+                                           where grouped.Count(g => g.Author == username) == 0
+                                           select new
+                                           {
+                                               ProductId = grouped.Key.ProductId,
+                                               Title = grouped.Key.Title,
+                                               Author = grouped.Key.Author,
+                                               Image = grouped.Key.Image,
+                                               raiting = grouped.Average(c => c.Rating)
+                                           }).OrderByDescending(b => b.raiting)
+                                           .Take(5);
+
+            } else
+            {
+                booksFromFavoriteGenres = (from book in db.Books
+                                           join comment in db.Comments on book.ProductId equals comment.ProductId
+                                           group comment by new { book.ProductId, book.Title, book.Author, book.Image } into grouped
+                                           where grouped.Count(g => g.Author == username) == 0
+                                           select new
+                                           {
+                                               ProductId = grouped.Key.ProductId,
+                                               Title = grouped.Key.Title,
+                                               Author = grouped.Key.Author,
+                                               Image = grouped.Key.Image,
+                                               raiting = grouped.Average(c => c.Rating)
+                                           }).OrderByDescending(b => b.raiting)
+                                           .Take(5);
+            }
+
+            return Json(booksFromFavoriteGenres, JsonRequestBehavior.AllowGet);
         }
 
         [Authorize]
