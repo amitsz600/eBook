@@ -101,6 +101,7 @@ namespace eBook.Controllers
                                            where book.genre == favoriteGenre.Genre
                                            join comment in db.Comments on book.ProductId equals comment.ProductId
                                            group comment by new { book.ProductId, book.Title, book.Author, book.Image } into grouped
+                                           where grouped.Count(g => g.Author == username) == 0
                                            select new
                                            {
                                                ProductId = grouped.Key.ProductId,
@@ -116,6 +117,7 @@ namespace eBook.Controllers
                 booksFromFavoriteGenres = (from book in db.Books
                                            join comment in db.Comments on book.ProductId equals comment.ProductId
                                            group comment by new { book.ProductId, book.Title, book.Author, book.Image } into grouped
+                                           where grouped.Count(g => g.Author == username) == 0
                                            select new
                                            {
                                                ProductId = grouped.Key.ProductId,
