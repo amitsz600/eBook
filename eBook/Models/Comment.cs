@@ -42,7 +42,7 @@ namespace eBook.Models
 
         [Required]
         [DataType(DataType.Text)]
-        public int Rating;
+        public int Rating { get; set; }
 
         [Required]
         [DataType(DataType.Date)]
