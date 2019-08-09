@@ -47,6 +47,11 @@ namespace eBook.Controllers
                 query = query.Where(p => p.genre.Contains(genre));
             }
 
+            foreach (var book in query)
+            {
+                book.AvarageRating = this.GetRating(book.ProductId);
+            }
+        
             return View(query.ToList());
         }
 
@@ -85,6 +90,11 @@ namespace eBook.Controllers
             {
                 return HttpNotFound();
             }
+            else
+            {
+                book.AvarageRating = this.GetRating(id.Value);
+            }
+
             return View(book);
         }
 
@@ -238,6 +248,14 @@ namespace eBook.Controllers
         //            .Select(p => new { p.ProductId, p.Title }).Take(amount ?? POPULAR_ProductS_AMOUNT),
         //        JsonRequestBehavior.AllowGet);
         //}
+
+        private double GetRating(int ProductId)
+        {
+            double result = (from comment in db.Comments where comment.ProductId == ProductId select comment.Rating).Average();
+            return result;
+        }
+
+
 
         
     }
