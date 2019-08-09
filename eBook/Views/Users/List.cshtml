@@ -37,23 +37,63 @@
         </div>
         <div class="col-md-8 offset-md-1">
             <div id="map" class="justify-content-center"></div>
+            @Scripts.Render("~/bundles/modernizr")
+            @Scripts.Render("~/bundles/jquery")
+            @Scripts.Render("~/bundles/bootstrap")
+
             <script>
                 // Initialize and add the map
                 function initMap() {
-                  // The location of Uluru
-                  var uluru = {lat: -25.344, lng: 131.036};
-                  // The map, centered at Uluru
-                  var map = new google.maps.Map(
-                      document.getElementById('map'), {zoom: 4, center: uluru});
-                  // The marker, positioned at Uluru
-                  var marker = new google.maps.Marker({position: uluru, map: map});
+                    // The location of Uluru
+                    var uluru = { lat:  32.074302, lng: 34.791007};
+                    // The map, centered at Uluru             
+                    var map = new google.maps.Map(
+                        document.getElementById('map'), { zoom: 7, center: uluru });
+
+                    $.ajax({
+                        type: 'GET',
+                        url: '/Users/getAddresses',
+                        dataType: 'html',
+                        success: function (data) {
+                            var users = JSON.parse(data);
+                            var isMapCenter;
+                            $.each(users, function (i, item) {
+                                var geocoder = new google.maps.Geocoder();
+                                geocoder.geocode({
+                                    "address": item.Address
+                                }, function (results, status) {
+                                        if (status == google.maps.GeocoderStatus.OK) {
+                                            if (!isMapCenter) {
+                                                map.setCenter(results[0].geometry.location);
+                                                isMapCenter = true;
+                                            }
+
+                                            new google.maps.Marker({
+                                                position: results[0].geometry.location,
+                                                label: item.UserName.substr(0, 2).toUpperCase(),
+                                                title: item.UserName,
+                                                map: map
+                                            });
+                                    }
+                                }
+                                );
+                            });
+
+                        },
+                        error: function (ex) {
+                            var r = jQuery.parseJSON(response.responseText);
+                            alert("Message: " + r.Message);
+                            alert("StackTrace: " + r.StackTrace);
+                            alert("ExceptionType: " + r.ExceptionType);
+                        }
+                    });
                 }
             </script>
-                    <!--Load the API from the specified URL
-            * The async attribute allows the browser to render the page while the API loads
-            * The key parameter will contain your own API key (which is not needed for this tutorial)
-            * The callback parameter executes the initMap() function
-            -->
+            <!--Load the API from the specified URL
+    * The async attribute allows the browser to render the page while the API loads
+    * The key parameter will contain your own API key (which is not needed for this tutorial)
+    * The callback parameter executes the initMap() function
+    -->
             <script async defer
                     src="https://maps.googleapis.com/maps/api/js?key=AIzaSyC6mI8I-aMfivZt6nyqNbSCKcNGAQoC2hE&callback=initMap">
             </script>

@@ -66,19 +66,5 @@
         <script src="~/Scripts/script.js"></script>
 
         @RenderSection("scripts", required: false)
-        <script type="text/javascript">
-            'use strict';
-
-            function invokeMap(uluru) {
-                if (!document.getElementById('map')) {
-                    return;
-                }
-
-                var map = new google.maps.Map(document.getElementById('map'), {
-                    zoom: 4,
-                    center: uluru
-                });
-            }
-        </script>
     </body>
 </html>
