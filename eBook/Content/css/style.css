@@ -11,6 +11,33 @@
     width:100px;
 }
 
+.card-book .btn,
+.card-book .card-title {
+    font-size: 10pt;
+}
+
+.card-book-img {
+    overflow: hidden;
+    position: relative;
+    width: 100%;
+}
+
+.card-book-img img {
+    width:100%;
+}
+
+.card-book .card-footer {
+    position: absolute;
+    bottom: 0;
+    background-color: rgba(206, 206, 206, 0.8);
+    width:100%;
+}
+
+#favorites h5 {
+    text-align: center;
+}
+}
+
 .avatar {
     height:100px;
 }

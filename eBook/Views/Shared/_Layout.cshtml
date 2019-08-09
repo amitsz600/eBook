@@ -19,6 +19,11 @@
         <ul class="nav navbar-nav mr-auto">
             <li class="nav-item">@Html.ActionLink("Home", "Index", "Books", null, new { @class = "nav-link" })</li>
             <li class="nav-item">@Html.ActionLink("About", "Index", "About", null, new { @class = "nav-link" })</li>
+            @*Add New book *@
+            @if (User.Identity.IsAuthenticated)
+            {
+                <li class="nav-item">@Html.ActionLink("Add New Book", "Create", "Books", null, new { @class = "nav-link" })</li>
+            }
         </ul>
         <ul class="navbar-nav ml-auto">
             <li class="navbar-text">
@@ -67,32 +72,48 @@
         <script type="text/javascript">
             'use strict';
 
-            function initMap() {
-                var uluru = { lat: -25.363, lng: 131.044 };
+            function invokeMap(uluru) {
+                if (!document.getElementById('map')) {
+                    return;
+                }
+
                 var map = new google.maps.Map(document.getElementById('map'), {
                     zoom: 4,
                     center: uluru
                 });
 
-                $.get("/Posts/UsersByPostsAddressesQuery", function (data) {
-                    for (var pos = 0; pos < data.length; pos++) {
-
-                        var geocoder = new google.maps.Geocoder()
-
-                        geocoder.geocode({
-                            "address": data[pos].Address
-                        }, function (results, status) {
-                            if (status == google.maps.GeocoderStatus.OK) {
-                                new google.maps.Marker({
-                                    position: results[0].geometry.location,
-                                    map: map
-                                });
-                            }
-                        }
-                        )
+                /*var geocoder = new google.maps.Geocoder();
+                geocoder.geocode({
+                    "address": "books"
+                }, function (results, status) {
+                    if (status == google.maps.GeocoderStatus.OK) {
+                        new google.maps.Marker({
+                            position: results[0].geometry.location,
+                            map: map
+                        });
                     }
-                })
+                });*/
             }
+
+            function initMap() {
+                $(document).ready(function () {
+                    var defaultPosition = { lat: 32.074302, lng: 34.791007 };
+                    if ("geolocation" in navigator) {
+                        navigator.geolocation.getCurrentPosition(function (position) {
+                            invokeMap({ lat: position.coords.latitude, lng: position.coords.longitude });
+                            }, function (error) {
+                                // Default position if an error occured (e.g. user denied)
+                                invokeMap(defaultPosition);
+                            });
+                    } else {
+                        /* geolocation IS NOT available */
+                        invokeMap(defaultPosition);
+                    }
+                });
+            }
+        </script>
+        <script async defer
+                src="https://maps.googleapis.com/maps/api/js?key=AIzaSyC6mI8I-aMfivZt6nyqNbSCKcNGAQoC2hE&callback=initMap">
         </script>
     </body>
 </html>

@@ -184,6 +184,10 @@
     <Compile Include="Migrations\201908021349523_Rename.Designer.cs">
       <DependentUpon>201908021349523_Rename.cs</DependentUpon>
     </Compile>
+    <Compile Include="Migrations\201908081403408_sec.cs" />
+    <Compile Include="Migrations\201908081403408_sec.Designer.cs">
+      <DependentUpon>201908081403408_sec.cs</DependentUpon>
+    </Compile>
     <Compile Include="Migrations\Configuration.cs" />
     <Compile Include="Models\Comment.cs" />
     <Compile Include="Models\Book.cs" />
@@ -193,6 +197,7 @@
     <Compile Include="Properties\AssemblyInfo.cs" />
   </ItemGroup>
   <ItemGroup>
+    <Content Include="App_Data\readme.txt" />
     <Content Include="Content\bootstrap-grid.css" />
     <Content Include="Content\bootstrap-grid.min.css" />
     <Content Include="Content\bootstrap-reboot.css" />
@@ -297,7 +302,6 @@
     <Content Include="Views\Comments\Index.cshtml" />
   </ItemGroup>
   <ItemGroup>
-    <Folder Include="App_Data\" />
     <Folder Include="Views\Update\" />
   </ItemGroup>
   <ItemGroup>
@@ -309,6 +313,9 @@
     </EmbeddedResource>
     <EmbeddedResource Include="Migrations\201908021349523_Rename.resx">
       <DependentUpon>201908021349523_Rename.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Migrations\201908081403408_sec.resx">
+      <DependentUpon>201908081403408_sec.cs</DependentUpon>
     </EmbeddedResource>
   </ItemGroup>
   <ItemGroup>

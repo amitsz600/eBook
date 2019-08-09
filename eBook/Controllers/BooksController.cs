@@ -50,29 +50,6 @@ namespace eBook.Controllers
             return View(query.ToList());
         }
 
-
-        //[Authorize(Roles = IdentityConfigGlobals.MANAGER_ROLE)]
-        //public ActionResult Manager()
-        //{
-        //    var groupQuery = from Book in db.Books
-        //                     group Book by Book.Category into ProductGroup
-        //                     orderby ProductGroup.Key
-        //                     select ProductGroup;
-
-        //    return View(groupQuery);
-        //}
-
-        //public ActionResult GetGroupsByCategories()
-        //{
-        //    var groupQuery = from Book in db.Books
-        //                     group Book by Book.Category into ProductGroup
-        //                     orderby ProductGroup.Key
-        //                     //select new { Count=ProductGroup.Count(), Category=ProductGroup.First().Category };
-        //                     select new { Count = ProductGroup.Count(), Category = ProductGroup.FirstOrDefault().Category };
-
-        //    return Json(groupQuery, JsonRequestBehavior.AllowGet);
-        //}
-
         // GET: Books/Details/5
         public ActionResult Details(int? id)
         {
@@ -86,6 +63,73 @@ namespace eBook.Controllers
                 return HttpNotFound();
             }
             return View(book);
+        }
+
+
+        // GET: Books/Favorites
+        public ActionResult Favorites(String username)
+        {
+            if (username == null)
+            {
+                return new HttpStatusCodeResult(HttpStatusCode.OK);
+            }
+
+            var favoriteGenres = from book in db.Books
+                                 join comment in db.Comments on book.ProductId equals comment.ProductId
+                                 where comment.Author == username
+                                 group comment by new { book.genre } into grouped
+                                 select new
+                                 {
+                                     Genre = grouped.Key.genre,
+                                     NumberOfComments = grouped.Count()
+                                 };
+            var favoriteGenre = new {Genre= "", NumberOfComments = -1 };
+
+            foreach (var genreAndNumberOfComments in favoriteGenres)
+            {
+                if (genreAndNumberOfComments.NumberOfComments > favoriteGenre.NumberOfComments)
+                {
+                    favoriteGenre = genreAndNumberOfComments;
+                }
+            }
+
+            IQueryable booksFromFavoriteGenres; 
+
+            if (!favoriteGenre.Genre.Equals(""))
+            {
+                booksFromFavoriteGenres = (from book in db.Books
+                                           where book.genre == favoriteGenre.Genre
+                                           join comment in db.Comments on book.ProductId equals comment.ProductId
+                                           group comment by new { book.ProductId, book.Title, book.Author, book.Image } into grouped
+                                           where grouped.Count(g => g.Author == username) == 0
+                                           select new
+                                           {
+                                               ProductId = grouped.Key.ProductId,
+                                               Title = grouped.Key.Title,
+                                               Author = grouped.Key.Author,
+                                               Image = grouped.Key.Image,
+                                               raiting = grouped.Average(c => c.Rating)
+                                           }).OrderByDescending(b => b.raiting)
+                                           .Take(5);
+
+            } else
+            {
+                booksFromFavoriteGenres = (from book in db.Books
+                                           join comment in db.Comments on book.ProductId equals comment.ProductId
+                                           group comment by new { book.ProductId, book.Title, book.Author, book.Image } into grouped
+                                           where grouped.Count(g => g.Author == username) == 0
+                                           select new
+                                           {
+                                               ProductId = grouped.Key.ProductId,
+                                               Title = grouped.Key.Title,
+                                               Author = grouped.Key.Author,
+                                               Image = grouped.Key.Image,
+                                               raiting = grouped.Average(c => c.Rating)
+                                           }).OrderByDescending(b => b.raiting)
+                                           .Take(5);
+            }
+
+            return Json(booksFromFavoriteGenres, JsonRequestBehavior.AllowGet);
         }
 
         [Authorize]
@@ -102,19 +146,10 @@ namespace eBook.Controllers
         [ValidateAntiForgeryToken]
         [ValidateInput(false)]
         [Authorize(Roles = IdentityConfigGlobals.MANAGER_ROLE + "," + IdentityConfigGlobals.USER_ROLE)]
-        public ActionResult Create([Bind(Include = "Title,Author,Price,Description,genre,Image,publisher,TwitterWidgets")] Book book)
+        public ActionResult Create([Bind(Include = "ProductId,Title,Author,Price,Description,genre,Image,publisher,TwitterWidgets")] Book book)
         {
             if (ModelState.IsValid)
             {
-                try
-                {
-                    book.ProductId = db.Books.Max(p => p.ProductId) + 1;
-                }
-                catch (Exception e)
-                {
-                    book.ProductId = 0;
-                }
-
                 db.Books.Add(book);
                 db.SaveChanges();
                 return RedirectToAction("Index");
@@ -186,28 +221,6 @@ namespace eBook.Controllers
             return PartialView("_UsersByProductsAddressesPartial");
         }
 
-        //[HttpGet]
-        //public ActionResult UsersByProductsAddressesQuery()
-        //{
-        //    var queryUsersProducts = from user in db.Users
-        //                             join Book in db.Books on user.Address equals Book.ProductedFrom
-        //                             select new { Address = user.Address, UserEmail = user.Email, ProductTitle = Book.Title };
-
-        //    return Json(queryUsersProducts, JsonRequestBehavior.AllowGet);
-        //}
-
-
-
-        //[HttpGet]
-        //public ActionResult UsersByProductsAddresses()
-        //{
-        //    var queryUsersProducts = from user in db.Users
-        //                             join Book in db.Books on user.Address equals Book.ProductedFrom
-        //                             select new { Address = user.Address, UserEmail = user.Email, ProductTitle = Book.Title };
-
-        //    return PartialView("_UsersByProductsAddressesPartial", queryUsersProducts);
-        //}
-
         protected override void Dispose(bool disposing)
         {
             if (disposing)
@@ -215,25 +228,6 @@ namespace eBook.Controllers
                 db.Dispose();
             }
             base.Dispose(disposing);
-        }
-
-        // JSON
-        //[HttpGet]
-        //public ActionResult GetLikesNum(int ProductId)
-        //{
-        //    return Json(db.Books.Where(p => p.ProductId == ProductId).Select(p => p.Users.Count), JsonRequestBehavior.AllowGet);
-        //}
-
-
-        //private const int POPULAR_ProductS_AMOUNT = 3;
-        //[System.Web.Mvc.HttpGet]
-        //public ActionResult GetPopularProducts(int? amount)
-        //{
-        //    return Json(db.Books.OrderByDescending(p => p.Users.Count)
-        //            .Select(p => new { p.ProductId, p.Title }).Take(amount ?? POPULAR_ProductS_AMOUNT),
-        //        JsonRequestBehavior.AllowGet);
-        //}
-
-        
+        }       
     }
 }
