@@ -4,65 +4,114 @@
 @using eBook.Models
 @using eBook.App_Start
 @model IEnumerable<eBook.Models.Book>
-    @{
+@{
     ViewBag.Title = "Index";
     Layout = "~/Views/Shared/_Layout.cshtml";
-    }
-
-    @*Add New book *@
-    @if (User.Identity.IsAuthenticated)
+}
+<h3>Filter Books</h3>
+<div class="row">
+    @using (Html.BeginForm("Index", "Books", FormMethod.Get, new { @class = "col-md-8 row" }))
     {
-        @Html.ActionLink("Add New Book", "Create")
-    }
 
-    <div class="row">
-        @using (Html.BeginForm("Index", "Books", FormMethod.Get, new { @class = "col-md-4" }))
-        {
-        <h3>Filter Books</h3>
-        <div class="form-group">
+        <div class="form-group col-md-5">
             <label for="title-filter">Title: </label>
             <input class="form-control" type="text" name="title" id="title-filter">
         </div>
-        <div class="form-group">
+        <div class="form-group  col-md-5">
             <label for="author-filter">Author: </label>
             <input class="form-control" type="text" name="author" id="author-filter">
         </div>
-        <div class="form-group">
+        <div class="form-group  col-md-5">
             <label for="author-filter">genre: </label>
             <input class="form-control" type="text" name="genre" id="genre-filter">
         </div>
-        <div class="form-group">
+        <div class="form-group  col-md-5">
             <label for="author-filter">publisher: </label>
             <input class="form-control" type="text" name="publisher" id="publisher-filter">
         </div>
-        <div class="form-group">
+        <div class="form-group  col-md-4 offset-md-3">
             <input class="form-control btn btn-success" type="submit" value="Filter books">
         </div>
-        }
-
-        <div class="col-md-3"></div>
-        <div class="col-md-4">
-            <h5>
-                Recommended books (Most Liked)
-            </h5>
-            <div class="popular">
+    }
+    <div class="col-md-4" id="favorites">
+        <h5>
+            What Should I Read Next?
+        </h5>
+        <div>
+            <div class="row">
                 There are no recommended books at the moment
             </div>
         </div>
     </div>
-    <hr />
+</div>
 
-    @*Display all the books*@
-    <div id="books">
-        @foreach (var item in Model)
-        {
-        <section class="row">
-            <article>
-                <header></header>
-                @Html.DisplayFor(modelItem => item.Title)
-                @Html.ActionLink("Details", "Details", new { id = item.ProductId })
-            </article>
-        </section>
-        <br>
-        }
-    </div>
+<hr />
+@Scripts.Render("~/bundles/modernizr")
+@Scripts.Render("~/bundles/jquery")
+@Scripts.Render("~/bundles/bootstrap")
+
+<script type="text/javascript">
+    $(function () {
+        LoadFavorites();
+    });
+    function LoadFavorites() {
+        $.ajax({
+            type: 'GET',
+            url: 'https://localhost:44357/Books/Favorites',
+            dataType: 'html',
+            data: { username: '@User.Identity.GetUserName()' },
+            success: function (data) {
+                var books = JSON.parse(data);
+                if (books.length != 0) {
+                    $('#favorites .row').html('');
+                    $.each(books, function (i, item) {
+                    var rows = '<div class="' + (i == books.length - 1 && i % 2 == 0 ? 'offset-md-3 ' : '') +'col-md-6"><div class="card card-book" style="height: 12rem;">' +
+                                    '<div class="card-img-top card-book-img"><img src="' + (item.Image || '/Content/images/book.jpg') + '"></div>' +
+                                              '<div class="card-footer">' +
+                                                '<h6 class="card-title">' + item.Title + ' - ' + item.Author + '</h6>' +
+                                                '<a href="/Books/Details/' + item.ProductId + '" class="btn btn-primary">more details..</a>' +
+                                                          '</div>'+
+                                                '</div>' +
+                                            '</div>';
+                                $('#favorites .row').append(rows);
+                            });
+
+                }
+            },
+            error: function (ex) {
+                var r = jQuery.parseJSON(response.responseText);
+                alert("Message: " + r.Message);
+                alert("StackTrace: " + r.StackTrace);
+                alert("ExceptionType: " + r.ExceptionType);
+            }
+        });
+        return false;
+    }
+</script>
+@*Display all the books*@
+<div id="books" class="row">
+    @foreach (var item in Model)
+    {
+
+        <div class="col-md-3">
+            <div class="card card-book" style="height: 15rem;">
+
+                <div class="card-img-top card-book-img">
+                    @if (!string.IsNullOrWhiteSpace(item.Image))
+                    {
+                        <img src="@Html.DisplayFor(modelItem => item.Image)">
+                    }
+                    @if (string.IsNullOrWhiteSpace(item.Image))
+                    {
+                        <img src="/Content/images/book.jpg">
+                    }
+                </div>
+                <div class="card-footer">
+                    <h6 class="card-title">@Html.DisplayFor(modelItem => item.Title) - @Html.DisplayFor(modelItem => item.Author)</h6>
+                    @Html.ActionLink("More details..", "Details", new { id = item.ProductId }, new { @class = "btn btn-primary" })
+
+                </div>
+            </div>
+        </div>
+    }
+</div>
