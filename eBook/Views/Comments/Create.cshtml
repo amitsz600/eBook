@@ -6,53 +6,72 @@
 }
 
 <div class="row">
-@using (Html.BeginForm())
+    @using (Html.BeginForm())
     {
         @Html.AntiForgeryToken()
 
-        <hr/>
+        <hr />
+        <a>
+            <span onclick="CloseCreateComment()" class="fa fa-remove float-right" aria-hidden="true"></span>
+        </a>
+
         <h6>Add Comment</h6>
-        
+
         <div class="form-group">
-            @Html.LabelFor(model => model.Title, htmlAttributes: new {@class = "control-label"})
-            @Html.EditorFor(model => model.Title, new {htmlAttributes = new {@class = "form-control"}})
-            @Html.ValidationMessageFor(model => model.Title, "", new {@class = "text-danger"})
+            @Html.LabelFor(model => model.Title, htmlAttributes: new { @class = "control-label" })
+            @Html.EditorFor(model => model.Title, new { htmlAttributes = new { @class = "form-control" } })
+            @Html.ValidationMessageFor(model => model.Title, "", new { @class = "text-danger" })
         </div>
 
         <div class="form-group">
-            @Html.LabelFor(model => model.Author, htmlAttributes: new {@class = "control-label"})
-            @Html.EditorFor(model => model.Author, new {htmlAttributes = new {@class = "form-control"}})
-            @Html.ValidationMessageFor(model => model.Author, "", new {@class = "text-danger"})
+            @Html.LabelFor(model => model.Body, htmlAttributes: new { @class = "control-label" })
+            @Html.EditorFor(model => model.Body, new { htmlAttributes = new { @class = "form-control" } })
+            @Html.ValidationMessageFor(model => model.Body, "", new { @class = "text-danger" })
+        </div>
+
+        <div class='starrr'>
+            @Html.LabelFor(model => model.Rating, htmlAttributes: new { @class = "control-label"})
+            @Html.EditorFor(model => model.Rating, new { htmlAttributes = new { @class = "form-control", @id = "Rating", @type="hidden"} })
+            @Html.ValidationMessageFor(model => model.Rating, "", new { @class = "text-danger"})
         </div>
 
         <div class="form-group">
-            @Html.LabelFor(model => model.Site, htmlAttributes: new {@class = "control-label"})
-            @Html.EditorFor(model => model.Site, new {htmlAttributes = new {@class = "form-control"}})
-            @Html.ValidationMessageFor(model => model.Site, "", new {@class = "text-danger"})
-        </div>
-
-        <div class="form-group">
-            @Html.LabelFor(model => model.Body, htmlAttributes: new {@class = "control-label"})
-            @Html.EditorFor(model => model.Body, new {htmlAttributes = new {@class = "form-control"}})
-            @Html.ValidationMessageFor(model => model.Body, "", new {@class = "text-danger"})
-        </div>
-
-
-        <div class="form-group">
-            <input
-                type="submit"
-                value="Add Comment"
-                class="btn btn-info"
-                formaction='@Url.Action("Create", "Comments", new eBook.Models.Comment()
+            <input type="submit"
+                   value="Add Comment"
+                   class="btn btn-info"
+                   formaction='@Url.Action("Create", "Comments", new eBook.Models.Comment()
                             {
-                                Author = Model.Author,
-                                PostId = Model.PostId,
+                                Author = User.Identity.Name,
+                                ProductId = Model.ProductId,
                                 Body = Model.Body,
                                 CommentId = Model.CommentId,
-                                Site = Model.Site,
-                                Title = Model.Title
-                            })'/>
+                                Title = Model.Title,
+                                Rating = Model.Rating
+                            })' />
         </div>
     }
 </div>
-<hr/>
+<hr />
+
+@Scripts.Render("~/bundles/modernizr")
+@Scripts.Render("~/bundles/jquery")
+@Scripts.Render("~/bundles/bootstrap")
+@Scripts.Render("~/bundles/d3")
+
+<script type="text/javascript">
+
+    $(function () {
+        $('.starrr').starrr({
+            change: function (e, value) {
+                var input = document.getElementById('Rating');
+                input.setAttribute('value', value);
+                console.log(input.value);
+            }
+        })
+    });
+
+    function CloseCreateComment() {
+        $("#createComment").collapse('hide')
+        $("#createCommentButton").show();
+    }
+</script>

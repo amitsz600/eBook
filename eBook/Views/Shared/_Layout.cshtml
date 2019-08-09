@@ -17,8 +17,8 @@
     </header>
     <nav class="navbar navbar-expand-lg navbar-dark bg-info ebook-navbar">
         <ul class="nav navbar-nav mr-auto">
-            <li class="nav-item">@Html.ActionLink("Home", "Index", "Books", null, new {@class = "nav-link"})</li>
-            <li class="nav-item">@Html.ActionLink("About", "Index", "About", null, new {@class = "nav-link"})</li>
+            <li class="nav-item">@Html.ActionLink("Home", "Index", "Books", null, new { @class = "nav-link" })</li>
+            <li class="nav-item">@Html.ActionLink("About", "Index", "About", null, new { @class = "nav-link" })</li>
         </ul>
         <ul class="navbar-nav ml-auto">
             <li class="navbar-text">
@@ -31,11 +31,11 @@
                 {
                 <li>@Html.ActionLink("Login", "Login", "Users", null, new { @class = "nav-link" })</li>
                 <li>@Html.ActionLink("Register", "Register", "Users", null, new { @class = "nav-link" })</li>
-                }
-                else
+            }
+            else
+            {
+                if (User.IsInRole(IdentityConfigGlobals.MANAGER_ROLE))
                 {
-                    if (User.IsInRole(IdentityConfigGlobals.MANAGER_ROLE))
-                    {
                     /*TODO: make book manager
                      * <li> @Html.ActionLink("Manage Books", "Manager", "Books", null, new { @class = "nav-link" }) </li>*/
                     <li> @Html.ActionLink("Manage Users", "List", "Users", null, new { @class = "nav-link" }) </li>
@@ -47,51 +47,52 @@
             }
                 </li>
             </ul>
-    </nav>
-    <div class="container body-content">
-        @RenderBody()
-        <hr />
-        <footer>
-            <p>&copy; @DateTime.Now.Year - Guy Yossi & Amit's Application</p>
-        </footer>
-    </div>
+        </nav>
+        <div class="container body-content">
+            @RenderBody()
+            <hr />
+            <footer>
+                <p>&copy; @DateTime.Now.Year - Guy Yossi & Amit's Application</p>
+            </footer>
+        </div>
 
-    @Scripts.Render("~/bundles/modernizr")
-    @Scripts.Render("~/bundles/jquery")
-    @Scripts.Render("~/bundles/bootstrap")
-    @Scripts.Render("~/bundles/d3")
-    <script src="~/Scripts/script.js"></script>
+        @Scripts.Render("~/bundles/modernizr")
+        @Scripts.Render("~/bundles/jquery")
+        @Scripts.Render("~/bundles/bootstrap")
+        @Scripts.Render("~/bundles/d3")
+        <script src="~/Scripts/script.js"></script>
+        <script src="~/Scripts/starrr.js"></script>
 
-    @RenderSection("scripts", required: false)
-    <script type="text/javascript">
-        'use strict';
+        @RenderSection("scripts", required: false)
+        <script type="text/javascript">
+            'use strict';
 
-        function initMap() {
-            var uluru = { lat: -25.363, lng: 131.044 };
-            var map = new google.maps.Map(document.getElementById('map'), {
-                zoom: 4,
-                center: uluru
-            });
+            function initMap() {
+                var uluru = { lat: -25.363, lng: 131.044 };
+                var map = new google.maps.Map(document.getElementById('map'), {
+                    zoom: 4,
+                    center: uluru
+                });
 
-            $.get("/Posts/UsersByPostsAddressesQuery", function (data) {
-                for (var pos = 0; pos < data.length; pos++) {
+                $.get("/Posts/UsersByPostsAddressesQuery", function (data) {
+                    for (var pos = 0; pos < data.length; pos++) {
 
-                    var geocoder = new google.maps.Geocoder()
+                        var geocoder = new google.maps.Geocoder()
 
-                    geocoder.geocode({
-                        "address": data[pos].Address
-                    }, function (results, status) {
-                        if (status == google.maps.GeocoderStatus.OK) {
-                            new google.maps.Marker({
-                                position: results[0].geometry.location,
-                                map: map
-                            });
+                        geocoder.geocode({
+                            "address": data[pos].Address
+                        }, function (results, status) {
+                            if (status == google.maps.GeocoderStatus.OK) {
+                                new google.maps.Marker({
+                                    position: results[0].geometry.location,
+                                    map: map
+                                });
+                            }
                         }
+                        )
                     }
-                    )
-                }
-            })
-        }
-    </script>
-</body>
+                })
+            }
+        </script>
+    </body>
 </html>

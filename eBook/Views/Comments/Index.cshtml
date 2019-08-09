@@ -4,59 +4,30 @@
     Layout = null;
 }
 
-<h2>Comments</h2>
-
-<p>
-    @Html.ActionLink("Create Comment", "Create")
-</p>
-
-<table class="table table-hover comments-table">
-    <thead class="thead-inverse">
-    <tr>
-        <th>
-            Post
-            @Html.DisplayNameFor(model => model.RelatedProduct.Title)
-        </th>
-        <th>
-            Comment
-            @Html.DisplayNameFor(model => model.Title)
-        </th>
-        <th>
-            @Html.DisplayNameFor(model => model.Author)
-        </th>
-        <th>
-            @Html.DisplayNameFor(model => model.Body)
-        </th>
-        <th>
-
-        </th>
-    </tr>
-    </thead>
-    <tbody>
-    @foreach (var item in Model)
-    {
-        <tr>
-            <td>
-                @Html.DisplayFor(modelItem => item.RelatedProduct.Title)
-            </td>
-            <td>
-                @Html.DisplayFor(modelItem => item.Title)
-            </td>
-            <td>
-                @Html.DisplayFor(modelItem => item.Author)
-            </td>
-            <td>
-                @Html.DisplayFor(modelItem => item.Body)
-            </td>
-            <td>
-                @Html.ActionLink("Edit", "Edit", new {id = item.CommentId}) |
-                @Html.ActionLink("Details", "Details", new {id = item.CommentId}) |
-                @Html.ActionLink("Delete", "Delete", new {id = item.CommentId})
-            </td>
-        </tr>
-    }
-    </tbody>
 
 
-</table>
+@foreach (var item in Model)
+{
+    <div class="card card-inner">
+        <div class="card-body">
+            <div class="row">
+                <div class="col-md-2">
+                    <img src="~/Content/Images/def_face.jpg" class="img img-rounded img-fluid avatar" />
+                    <a><strong>@Html.DisplayFor(modelItem => item.Author)</strong></a>
+                </div>
+                <div class="col-md-10">
+                    <p>
+                        <span class="comment-title">@Html.DisplayFor(modelItem => item.Title)</span>
+                        @for (var i = 0; i < item.Rating; i++)
+                        {
+                            <span class="float-right"><i class="text-warning fa fa-star"></i></span>
+                        }
+                    </p>
+                    <p class="comment-body">@Html.DisplayFor(modelItem => item.Body)</p>
+                </div>
+            </div>
+        </div>
+    </div>
+    <br />
+}
 
