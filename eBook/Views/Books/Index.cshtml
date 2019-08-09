@@ -33,11 +33,11 @@
             <input class="form-control btn btn-success" type="submit" value="Filter books">
         </div>
     }
-    <div class="col-md-4">
+    <div class="col-md-4" id="favorites">
         <h5>
-            Recommended books (Most Liked)
+            What Should I Read Next?
         </h5>
-        <div id="favorites">
+        <div>
             <div class="row">
                 There are no recommended books at the moment
             </div>
@@ -49,7 +49,6 @@
 @Scripts.Render("~/bundles/modernizr")
 @Scripts.Render("~/bundles/jquery")
 @Scripts.Render("~/bundles/bootstrap")
-@Scripts.Render("~/bundles/d3")
 
 <script type="text/javascript">
     $(function () {
@@ -90,16 +89,29 @@
     }
 </script>
 @*Display all the books*@
-<div id="books">
+<div id="books" class="row">
     @foreach (var item in Model)
     {
-        <section class="row">
-            <article>
-                <header></header>
-                @Html.DisplayFor(modelItem => item.Title)
-                @Html.ActionLink("Details", "Details", new { id = item.ProductId })
-            </article>
-        </section>
-        <br>
+
+        <div class="col-md-3">
+            <div class="card card-book" style="height: 15rem;">
+
+                <div class="card-img-top card-book-img">
+                    @if (!string.IsNullOrWhiteSpace(item.Image))
+                    {
+                        <img src="@Html.DisplayFor(modelItem => item.Image)">
+                    }
+                    @if (string.IsNullOrWhiteSpace(item.Image))
+                    {
+                        <img src="/Content/images/book.jpg">
+                    }
+                </div>
+                <div class="card-footer">
+                    <h6 class="card-title">@Html.DisplayFor(modelItem => item.Title) - @Html.DisplayFor(modelItem => item.Author)</h6>
+                    @Html.ActionLink("More details..", "Details", new { id = item.ProductId }, new { @class = "btn btn-primary" })
+
+                </div>
+            </div>
+        </div>
     }
 </div>
