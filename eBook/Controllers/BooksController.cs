@@ -221,42 +221,6 @@ namespace eBook.Controllers
             return PartialView("_UsersByProductsAddressesPartial");
         }
 
-        [HttpGet]
-        //public ActionResult UsersByProductsAddressesQuery()
-        //{ii
-        //    var queryUsersProducts = from user in db.Users
-        //                             join Book in db.Books on user.Address equals Book.ProductedFrom
-        //                             select new { Address = user.Address, UserEmail = user.Email, ProductTitle = Book.Title };
-
-        //    return Json(queryUsersProducts, JsonRequestBehavior.AllowGet);
-        //}
-
-        //[HttpGet]
-        //public ActionResult LikedBooks(string user)
-        //{
-        //    var User = db.Users.Where(x => x.UserName.Equals(user));
-        //    var books = (from t in db.Comments
-        //                 join bb in db.Books on t.ProductId equals bb.ProductId
-        //                 where t.Author == ((User)User).UserName
-        //                    orderby t.Rating
-        //                    select t).Take(3);
-
-        //    //return Json(queryUsersProducts, JsonRequestBehavior.AllowGet);
-
-        //    return null;
-        //}
-
-
-        //[HttpGet]
-        //public ActionResult UsersByProductsAddresses()
-        //{
-        //    var queryUsersProducts = from user in db.Users
-        //                             join Book in db.Books on user.Address equals Book.ProductedFrom
-        //                             select new { Address = user.Address, UserEmail = user.Email, ProductTitle = Book.Title };
-
-        //    return PartialView("_UsersByProductsAddressesPartial", queryUsersProducts);
-        //}
-
         protected override void Dispose(bool disposing)
         {
             if (disposing)
@@ -264,25 +228,6 @@ namespace eBook.Controllers
                 db.Dispose();
             }
             base.Dispose(disposing);
-        }
-
-        // JSON
-        //[HttpGet]
-        //public ActionResult GetLikesNum(int ProductId)
-        //{
-        //    return Json(db.Books.Where(p => p.ProductId == ProductId).Select(p => p.Users.Count), JsonRequestBehavior.AllowGet);
-        //}
-
-
-        //private const int POPULAR_ProductS_AMOUNT = 3;
-        //[System.Web.Mvc.HttpGet]
-        //public ActionResult GetPopularProducts(int? amount)
-        //{
-        //    return Json(db.Books.OrderByDescending(p => p.Users.Count)
-        //            .Select(p => new { p.ProductId, p.Title }).Take(amount ?? POPULAR_ProductS_AMOUNT),
-        //        JsonRequestBehavior.AllowGet);
-        //}
-
-        
+        }       
     }
 }
