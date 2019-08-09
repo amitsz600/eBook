@@ -27,7 +27,7 @@
         </ul>
         <ul class="navbar-nav ml-auto">
             <li class="navbar-text">
-                <span class="fa fa-cloud"></span>
+                <span class="icon fa-temperature-high"></span>
                 <span id="temperature"></span>
                 <span id="city"></span>
             </li>
@@ -41,8 +41,6 @@
             {
                 if (User.IsInRole(IdentityConfigGlobals.MANAGER_ROLE))
                 {
-                    /*TODO: make book manager
-                     * <li> @Html.ActionLink("Manage Books", "Manager", "Books", null, new { @class = "nav-link" }) </li>*/
                     <li> @Html.ActionLink("Manage Users", "List", "Users", null, new { @class = "nav-link" }) </li>
                 }
 
@@ -94,7 +92,7 @@
                 });*/
             }
 
-            function initMap() {
+            /*function initMap() {
                 $(document).ready(function () {
                     var defaultPosition = { lat: 32.074302, lng: 34.791007 };
                     if ("geolocation" in navigator) {
@@ -105,14 +103,14 @@
                                 invokeMap(defaultPosition);
                             });
                     } else {
-                        /* geolocation IS NOT available */
+                        *//* geolocation IS NOT available *//*
                         invokeMap(defaultPosition);
                     }
                 });
-            }
+            }*/
         </script>
-        <script async defer
-                src="https://maps.googleapis.com/maps/api/js?key=AIzaSyC6mI8I-aMfivZt6nyqNbSCKcNGAQoC2hE&callback=initMap">
+        <script 
+                src="https://maps.googleapisi/js?key=AIzaSyC6mI8I-aMfivZt6nyqNbSCKcNGAQoC2hE&callback=initMap">
         </script>
     </body>
 </html>

@@ -54,6 +54,11 @@
     text-align: center;
 }
 
+#map {
+    height: 525px; /* The height is 400 pixels */
+    width: 100%; /* The width is the width of the web page */
+}
+
 .about {
     padding: 15px;
     -webkit-column-count: 3;
