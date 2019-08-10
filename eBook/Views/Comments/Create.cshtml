@@ -5,53 +5,53 @@
     Layout = string.Empty;
 }
 
-    <div class="row">
-        @using (Ajax.BeginForm("Create", "Comments", new eBook.Models.Comment()
-        {
-            Author = User.Identity.Name,
-            ProductId = Model.ProductId,
-            Body = Model.Body,
-            CommentId = Model.CommentId,
-            Title = Model.Title,
-            Rating = Model.Rating
-        }, new AjaxOptions(){OnSuccess = "CreatedComment"}
-        ))
-       
-        {
-            @Html.AntiForgeryToken()
+<div class="row">
+    @using (Ajax.BeginForm("Create", "Comments", new eBook.Models.Comment()
+    {
+        Author = User.Identity.Name,
+        ProductId = Model.ProductId,
+        Body = Model.Body,
+        CommentId = Model.CommentId,
+        Title = Model.Title,
+        Rating = Model.Rating
+    }, new AjaxOptions() { OnSuccess = "CreatedComment" }
+    ))
 
-            <hr />
+    {
+        @Html.AntiForgeryToken()
 
-            <a>
-                <span onclick="CloseCreateComment()" class="fa fa-remove float-right" aria-hidden="true"></span>
-            </a>
+        <hr />
 
-            <h6>Add Comment</h6>
+        <a>
+            <span onclick="CloseCreateComment()" class="fa fa-remove float-right" aria-hidden="true"></span>
+        </a>
 
-            <div class="form-group">
-                @Html.LabelFor(model => model.Title, htmlAttributes: new { @class = "control-label" })
-                @Html.EditorFor(model => model.Title, new { htmlAttributes = new { @class = "form-control" } })
-                @Html.ValidationMessageFor(model => model.Title, "", new { @class = "text-danger" })
-            </div>
+        <h6>Add Comment</h6>
 
-            <div class="form-group">
-                @Html.LabelFor(model => model.Body, htmlAttributes: new { @class = "control-label" })
-                @Html.EditorFor(model => model.Body, new { htmlAttributes = new { @class = "form-control" } })
-                @Html.ValidationMessageFor(model => model.Body, "", new { @class = "text-danger" })
-            </div>
+        <div class="form-group">
+            @Html.LabelFor(model => model.Title, htmlAttributes: new { @class = "control-label" })
+            @Html.EditorFor(model => model.Title, new { htmlAttributes = new { @class = "form-control" } })
+            @Html.ValidationMessageFor(model => model.Title, "", new { @class = "text-danger" })
+        </div>
 
-            <div class='starrr'>
-                @Html.LabelFor(model => model.Rating, htmlAttributes: new { @class = "control-label" })
-                @Html.EditorFor(model => model.Rating, new { htmlAttributes = new { @class = "form-control", @id = "rating", @type = "hidden" } })
-                @Html.ValidationMessageFor(model => model.Rating, "", new { @class = "text-danger" })
-            </div>
+        <div class="form-group">
+            @Html.LabelFor(model => model.Body, htmlAttributes: new { @class = "control-label" })
+            @Html.EditorFor(model => model.Body, new { htmlAttributes = new { @class = "form-control" } })
+            @Html.ValidationMessageFor(model => model.Body, "", new { @class = "text-danger" })
+        </div>
 
-            <div class="form-group">
-                <input class="btn btn-info" type="submit" value="Add Comment" />
-            </div>
-        }
+        <div class='starrr'>
+            @Html.LabelFor(model => model.Rating, htmlAttributes: new { @class = "control-label" })
+            @Html.EditorFor(model => model.Rating, new { htmlAttributes = new { @class = "form-control", @id = "rating", @type = "hidden" } })
+            @Html.ValidationMessageFor(model => model.Rating, "", new { @class = "text-danger" })
+        </div>
 
-    </div>
+        <div class="form-group">
+            <input class="btn btn-info" type="submit" value="Add Comment" />
+        </div>
+    }
+
+</div>
 <hr />
 
 @Scripts.Render("~/bundles/modernizr")
@@ -59,7 +59,10 @@
 @Scripts.Render("~/bundles/bootstrap")
 @Scripts.Render("~/bundles/d3")
 
+<script src='@Url.Content("~/Scripts/jquery.validate.js")' type='text/javascript'></script>
+<script src='@Url.Content("~/Scripts/jquery.validate.unobtrusive.js")' type='text/javascript'></script>
 <script type="text/javascript">
+    $.validator.setDefaults({ ignore: null });
 
     $(function () {
         $('.starrr').starrr({
@@ -73,7 +76,7 @@
     function CloseCreateComment() {
         $("#createComment").collapse('hide')
         $("#createCommentButton").show();
-        }
+    }
 
     function CreatedComment() {
         CloseCreateComment();
