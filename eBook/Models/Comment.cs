@@ -42,6 +42,7 @@ namespace eBook.Models
 
         [Required]
         [DataType(DataType.Text)]
+        [Range(1, 5, ErrorMessage = "Rating between 1 to 5")]
         public int Rating { get; set; }
 
         [Required]

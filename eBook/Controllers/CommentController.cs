@@ -70,8 +70,6 @@ namespace eBook.Controllers
                 db.Comments.Add(comment);
                 db.SaveChanges();
             }
-
-            ViewBag.PostId = new SelectList(db.Books, "ProductId", "Title", comment.ProductId);
         }
 
         // GET: Comments/Edit/5
