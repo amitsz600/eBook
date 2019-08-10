@@ -80,6 +80,10 @@
     text-decoration: none;
 }
 
+.helf-star {
+    transform: rotateY(180deg);
+}
+
 .comment-icons {
     float: right;
     margin-top: 40px;
