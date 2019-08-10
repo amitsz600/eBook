@@ -49,79 +49,79 @@
 
         @if (!string.IsNullOrWhiteSpace(Model.Image))
         {
-            <dt>
-                @Html.DisplayNameFor(model => model.Image)
-            </dt>
+        <dt>
+            @Html.DisplayNameFor(model => model.Image)
+        </dt>
 
-            <dd>
-                <img src="@Html.DisplayFor(model => model.Image)" class="book-pic" />
+        <dd>
+            <img src="@Html.DisplayFor(model => model.Image)" class="book-pic" />
 
-            </dd>
+        </dd>
         }
         @if (string.IsNullOrWhiteSpace(Model.Image))
         {
-            <dt>
-                @Html.DisplayNameFor(model => model.Image)
-            </dt>
+        <dt>
+            @Html.DisplayNameFor(model => model.Image)
+        </dt>
 
-            <dd>
-                <img src="~/Content/images/book.jpg" alt="No Image" class="book-pic" />
+        <dd>
+            <img src="~/Content/images/book.jpg" alt="No Image" class="book-pic" />
 
-            </dd>
+        </dd>
         }
 
         @if (!string.IsNullOrWhiteSpace(Model.Video))
         {
-            <dt>
-                @Html.DisplayNameFor(model => model.Video)
-            </dt>
+        <dt>
+            @Html.DisplayNameFor(model => model.Video)
+        </dt>
 
 
-            <dd>
-                @Html.DisplayFor(model => model.Video)
-            </dd>
+        <dd>
+            @Html.DisplayFor(model => model.Video)
+        </dd>
         }
 
         @if (!string.IsNullOrWhiteSpace(Model.TwitterWidgets))
         {
-            <dt>
-                @Html.DisplayNameFor(model => model.TwitterWidgets)
-            </dt>
-            <dd>
-                @Html.Raw(@Model.TwitterWidgets.ToString())
-            </dd>
+        <dt>
+            @Html.DisplayNameFor(model => model.TwitterWidgets)
+        </dt>
+        <dd>
+            @Html.Raw(@Model.TwitterWidgets.ToString())
+        </dd>
         }
     </dl>
 </div>
 <p>
     @if (User.Identity.IsAuthenticated)
     {
-        @Html.ActionLink("Edit", "Edit", new { id = Model.ProductId })
+    @Html.ActionLink("Edit", "Edit", new { id = Model.ProductId })
     }
 
     @if (User.IsInRole(IdentityConfigGlobals.MANAGER_ROLE))
     {
-        <span> | </span>
-        @Html.ActionLink("Delete", "Delete", new { id = Model.ProductId })
+    <span> | </span>
+    @Html.ActionLink("Delete", "Delete", new { id = Model.ProductId })
     }
 
 </p>
 
 <h2>Comments</h2>
 
-@if (User.IsInRole(IdentityConfigGlobals.USER_ROLE) || User.IsInRole(IdentityConfigGlobals.MANAGER_ROLE))
+@if (User.Identity.IsAuthenticated)
 {
-    <p>
-        <button id="createCommentButton" class="btn btn-info" type="button" onclick="OpenCrateComment()">
-            Create Comment
-        </button>
-    </p>
+<p>
+    <button id="createCommentButton" class="btn btn-info" type="button" onclick="OpenCrateComment()">
+        Create Comment
+    </button>
+</p>
 
-    <div class="collapse" id="createComment">
-        <p>
-            @Html.Partial("~/Views/Comments/Create.cshtml", new eBook.Models.Comment() { ProductId = Model.ProductId })
-        </p>
-    </div>
+<div class="collapse" id="createComment">
+    <p>
+        @Html.Partial("~/Views/Comments/Create.cshtml", new eBook.Models.Comment() { ProductId = Model.ProductId })
+    </p>
+</div>
 }
 
 <div id="comments">
@@ -144,7 +144,7 @@
             url: '@Url.Action("Index", "Comments", new {ProductId = Model.ProductId})',
             dataType: 'html',
             data: { id: '' },
-            success: function (data) {           
+            success: function (data) {
                 $('#comments').html(data);
             },
             error: function (ex) {
