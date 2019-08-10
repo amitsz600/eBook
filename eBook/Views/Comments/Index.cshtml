@@ -1,4 +1,5 @@
 ﻿@model IEnumerable<eBook.Models.Comment>
+@using eBook.App_Start
 
 @{
     Layout = null;
@@ -31,19 +32,23 @@
                     <br />
                     <span class="float-right">@Html.DisplayFor(modelItem => item.date)</span>
                     <br />
-                    <div class="comment-icons">
-                        <a onclick='deleteComment(@Html.DisplayFor(modelItem => item.CommentId))'>
-                            <i class="fa fa-trash clickable"></i>
-                        </a>
-                        <a href="@Url.Action("Edit", "Comments", new {id = item.CommentId})">
-                            <i class="fa fa-pencil clickable"></i>
-                        </a>
-                    </div>
+
+                    @if (User.IsInRole(IdentityConfigGlobals.MANAGER_ROLE) || User.Identity.Name == item.Author)
+                    {
+                        <div class="comment-icons">
+                            <a onclick='deleteComment(@Html.DisplayFor(modelItem => item.CommentId))'>
+                                <i class="fa fa-trash clickable"></i>
+                            </a>
+                            <a href="@Url.Action("Edit", "Comments", new { id = item.CommentId })">
+                                <i class="fa fa-pencil clickable"></i>
+                            </a>
+                        </div>
+                    }
                 </div>
             </div>
         </div>
     </div>
-    <br/>
+    <br />
 }
 
 
