@@ -59,6 +59,15 @@
     width: 100%; /* The width is the width of the web page */
 }
 
+svg.genre-chart {
+    height: 400px;
+    width: 500px;
+}
+
+svg.genre-chart rect{
+    fill: cornflowerblue;
+}
+
 .about {
     padding: 15px;
     -webkit-column-count: 3;

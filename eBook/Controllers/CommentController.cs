@@ -133,6 +133,26 @@ namespace eBook.Controllers
             return RedirectToAction("Index");
         }
 
+        [HttpGet]
+        public ActionResult GetAverageNumberForBooksPerMonth()
+        {
+            var groupQuery = (from comment in db.Comments
+                             group comment by new {comment.date.Month, comment.ProductId } into grouped
+                             select new
+                             {
+                                 Month = grouped.Key.Month,
+                                 ProductId = grouped.Key.ProductId,
+                                 Count = grouped.Count()
+                             });
+
+            /*groupQuery.GroupBy(g => g.Month).Select(g => new {
+                Month = g.Key,
+                Count = g.Average(c => c.Count)
+            }).OrderBy(g => g.Month);*/
+
+            return Json(groupQuery, JsonRequestBehavior.AllowGet);
+        }
+
         protected override void Dispose(bool disposing)
         {
             if (disposing)

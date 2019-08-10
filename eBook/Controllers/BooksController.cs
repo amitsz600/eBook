@@ -216,9 +216,14 @@ namespace eBook.Controllers
         }
 
         [HttpGet]
-        public ActionResult UsersByAddresses()
+        public ActionResult GetGroupsByGenre()
         {
-            return PartialView("_UsersByProductsAddressesPartial");
+            var groupQuery = from book in db.Books
+                             group book by book.genre into bookGroup
+                             orderby bookGroup.Key
+                             select new { Count = bookGroup.Count(), genre = bookGroup.FirstOrDefault().genre };
+
+            return Json(groupQuery, JsonRequestBehavior.AllowGet);
         }
 
         protected override void Dispose(bool disposing)
