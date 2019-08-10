@@ -54,6 +54,44 @@
     text-align: center;
 }
 
+
+.avatar {
+    height:100px;
+}
+
+.comment-title {
+    font-style: italic;
+    text-decoration: underline;
+}
+
+.comment-body {
+    font-size: small;
+}
+
+.starrr {
+    display: inline-block;
+}
+
+.starrr a {
+    font-size: 16px;
+    padding: 0 1px;
+    cursor: pointer;
+    color: #FFD119;
+    text-decoration: none;
+}
+
+.comment-icons {
+    float: right;
+    margin-top: 40px;
+    font-size: x-large;
+}
+
+.clickable {
+    cursor: pointer;
+    color: #007bff;
+}
+}
+
 #map {
     height: 525px; /* The height is 400 pixels */
     width: 100%; /* The width is the width of the web page */

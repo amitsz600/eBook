@@ -184,9 +184,9 @@
     <Compile Include="Migrations\201908021349523_Rename.Designer.cs">
       <DependentUpon>201908021349523_Rename.cs</DependentUpon>
     </Compile>
-    <Compile Include="Migrations\201908081403408_sec.cs" />
-    <Compile Include="Migrations\201908081403408_sec.Designer.cs">
-      <DependentUpon>201908081403408_sec.cs</DependentUpon>
+    <Compile Include="Migrations\201908091432206_guy.cs" />
+    <Compile Include="Migrations\201908091432206_guy.Designer.cs">
+      <DependentUpon>201908091432206_guy.cs</DependentUpon>
     </Compile>
     <Compile Include="Migrations\Configuration.cs" />
     <Compile Include="Models\Comment.cs" />
@@ -208,6 +208,7 @@
     <Content Include="Content\font-awesome.css" />
     <Content Include="Content\font-awesome.min.css" />
     <Content Include="Content\Images\book.jpg" />
+    <Content Include="Content\Images\def_face.jpg" />
     <Content Include="Content\Videos\ebook.mp4" />
     <Content Include="favicon.ico" />
     <Content Include="fonts\fontawesome-webfont.svg" />
@@ -247,6 +248,8 @@
     <Content Include="Scripts\jquery-3.4.1.min.js" />
     <Content Include="Scripts\jquery-3.4.1.slim.js" />
     <Content Include="Scripts\jquery-3.4.1.slim.min.js" />
+    <Content Include="Scripts\jquery.unobtrusive-ajax.js" />
+    <Content Include="Scripts\jquery.unobtrusive-ajax.min.js" />
     <Content Include="Scripts\popper-utils.js" />
     <Content Include="Scripts\popper-utils.min.js" />
     <Content Include="Scripts\popper.js" />
@@ -260,6 +263,7 @@
     <Content Include="Scripts\jquery.validate.unobtrusive.js" />
     <Content Include="Scripts\jquery.validate.unobtrusive.min.js" />
     <Content Include="Scripts\modernizr-2.8.3.js" />
+    <Content Include="Scripts\starrr.js" />
     <Content Include="Scripts\umd\popper-utils.js" />
     <Content Include="Scripts\umd\popper-utils.min.js" />
     <Content Include="Scripts\umd\popper.js" />
@@ -294,6 +298,11 @@
     <Content Include="Views\Books\Details.cshtml" />
     <Content Include="Views\Books\Edit.cshtml" />
     <Content Include="Views\Books\Delete.cshtml" />
+    <Content Include="Views\Comments\Create.cshtml" />
+    <Content Include="Views\Comments\Delete.cshtml" />
+    <Content Include="Views\Comments\Details.cshtml" />
+    <Content Include="Views\Comments\Edit.cshtml" />
+    <Content Include="Views\Comments\Index.cshtml" />
   </ItemGroup>
   <ItemGroup>
     <Folder Include="Views\Update\" />
@@ -308,8 +317,8 @@
     <EmbeddedResource Include="Migrations\201908021349523_Rename.resx">
       <DependentUpon>201908021349523_Rename.cs</DependentUpon>
     </EmbeddedResource>
-    <EmbeddedResource Include="Migrations\201908081403408_sec.resx">
-      <DependentUpon>201908081403408_sec.cs</DependentUpon>
+    <EmbeddedResource Include="Migrations\201908091432206_guy.resx">
+      <DependentUpon>201908091432206_guy.cs</DependentUpon>
     </EmbeddedResource>
   </ItemGroup>
   <ItemGroup>

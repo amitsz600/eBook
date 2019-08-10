@@ -1,0 +1,74 @@
+﻿@model IEnumerable<eBook.Models.Comment>
+@using eBook.App_Start
+
+@{
+    Layout = null;
+}
+
+
+
+@foreach (var item in Model)
+{
+    <div class="card card-inner">
+        <div class="card-body">
+            <div class="row">
+                <div class="col-md-2">
+                    <img src="~/Content/Images/def_face.jpg" class="img img-rounded img-fluid avatar" />
+                    <a><strong>@Html.DisplayFor(modelItem => item.Author)</strong></a>
+                </div>
+                <div class="col-md-8">
+                    <p>
+                        <span class="comment-title">@Html.DisplayFor(modelItem => item.Title)</span>
+                    </p>
+                    <p class="comment-body">
+                        @Html.DisplayFor(modelItem => item.Body)
+                    </p>
+                </div>
+                <div class="col-md-2">
+                    @for (var i = 0; i < item.Rating; i++)
+                    {
+                        <span class="float-right"><i class="text-warning fa fa-star"></i></span>
+                    }
+                    <br />
+                    <span class="float-right">@Html.DisplayFor(modelItem => item.date)</span>
+                    <br />
+
+                    @if (User.IsInRole(IdentityConfigGlobals.MANAGER_ROLE) || User.Identity.Name == item.Author)
+                    {
+                        <div class="comment-icons">
+                            <a onclick='deleteComment(@Html.DisplayFor(modelItem => item.CommentId))'>
+                                <i class="fa fa-trash clickable"></i>
+                            </a>
+                            <a href="@Url.Action("Edit", "Comments", new { id = item.CommentId })">
+                                <i class="fa fa-pencil clickable"></i>
+                            </a>
+                        </div>
+                    }
+                </div>
+            </div>
+        </div>
+    </div>
+    <br/>
+}
+
+
+<script type="text/javascript">
+    function deleteComment(id) {
+
+            $.ajax({
+                type: 'GET',
+                url: '@Url.Action("Delete", "Comments")' + '/' + id,
+                dataType: 'html',
+                data: { id: '' },
+                success: function () {
+                     LoadData();
+                }
+            });
+    }
+    function openEditComment(id) {
+
+            $("#editComment-" + id).collapse('show')
+    }
+</script>
+
+
