@@ -280,6 +280,22 @@ namespace eBook.Controllers
             return Redirect("List");
         }
 
+        // GET: Users/Details/5
+        public ActionResult Details(string UserName)
+        {
+            IQueryable<User> query = db.Users;
+
+            query = query.Where(x => x.UserName.Equals(UserName));
+
+            User user = query.FirstOrDefault();
+
+            if (user == null)
+            {
+                return HttpNotFound();
+            }
+            return View(user);
+        }
+
         #endregion
 
 

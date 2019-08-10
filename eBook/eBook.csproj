@@ -302,10 +302,9 @@
     <Content Include="Views\Books\Delete.cshtml" />
     <Content Include="Views\Statistics\Index.cshtml" />
     <Content Include="Views\Comments\Create.cshtml" />
-    <Content Include="Views\Comments\Delete.cshtml" />
-    <Content Include="Views\Comments\Details.cshtml" />
     <Content Include="Views\Comments\Edit.cshtml" />
     <Content Include="Views\Comments\Index.cshtml" />
+    <Content Include="Views\Users\Details.cshtml" />
   </ItemGroup>
   <ItemGroup>
     <Folder Include="Views\Update\" />

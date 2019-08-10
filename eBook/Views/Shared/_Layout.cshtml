@@ -23,6 +23,7 @@
             @if (User.Identity.IsAuthenticated)
             {
                 <li class="nav-item">@Html.ActionLink("Add New Book", "Create", "Books", null, new { @class = "nav-link" })</li>
+                <li class="nav-item">@Html.ActionLink("Profile", "Details", "Users", new {UserName = User.Identity.Name}, new { @class = "nav-link" })</li>
             }
         </ul>
         <ul class="navbar-nav ml-auto">
