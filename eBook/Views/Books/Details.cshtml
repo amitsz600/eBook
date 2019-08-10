@@ -7,14 +7,21 @@
 }
 
 <div>
-    <h4>@Html.DisplayFor(model => model.Title)'s Details</h4>
+    <h4>
+        @for (var i = 0; i < Model.AvarageRating - 0.5; i++)
+        {
+            <span class="float-right"><i class="text-warning fa fa-star"></i></span>
+        }
+
+        @if (Model.AvarageRating % 1 != 0)
+        {
+            <span class="float-right"><i class="text-warning fa fa-star-half helf-star"></i></span>
+        }
+        @Html.DisplayFor(model => model.Title)'s Details
+
+    </h4>
     <hr />
     <dl class="dl-horizontal">
-
-        <dd>
-            @Html.DisplayFor(model => model.Title)
-        </dd>
-
         <dt>
             @Html.DisplayNameFor(model => model.Author)
         </dt>
@@ -67,28 +74,6 @@
         <dd>
             <img src="~/Content/images/book.jpg" alt="No Image" class="book-pic" />
 
-        </dd>
-        }
-
-        @if (!string.IsNullOrWhiteSpace(Model.Video))
-        {
-        <dt>
-            @Html.DisplayNameFor(model => model.Video)
-        </dt>
-
-
-        <dd>
-            @Html.DisplayFor(model => model.Video)
-        </dd>
-        }
-
-        @if (!string.IsNullOrWhiteSpace(Model.TwitterWidgets))
-        {
-        <dt>
-            @Html.DisplayNameFor(model => model.TwitterWidgets)
-        </dt>
-        <dd>
-            @Html.Raw(@Model.TwitterWidgets.ToString())
         </dd>
         }
     </dl>
