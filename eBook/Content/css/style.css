@@ -90,11 +90,20 @@
     cursor: pointer;
     color: #007bff;
 }
-}
 
 #map {
     height: 525px; /* The height is 400 pixels */
     width: 100%; /* The width is the width of the web page */
+}
+
+svg.genre-chart,
+svg.comments-chart{
+    height: 400px;
+    width: 550px;
+}
+
+svg.genre-chart rect{
+    fill: cornflowerblue;
 }
 
 .about {

@@ -171,6 +171,7 @@
     <Compile Include="Controllers\AboutController.cs" />
     <Compile Include="Controllers\CommentController.cs" />
     <Compile Include="Controllers\BooksController.cs" />
+    <Compile Include="Controllers\StatisticsController.cs" />
     <Compile Include="Controllers\UsersController.cs" />
     <Compile Include="DAL\SiteContext.cs" />
     <Compile Include="Global.asax.cs">
@@ -184,9 +185,9 @@
     <Compile Include="Migrations\201908021349523_Rename.Designer.cs">
       <DependentUpon>201908021349523_Rename.cs</DependentUpon>
     </Compile>
-    <Compile Include="Migrations\201908091432206_guy.cs" />
-    <Compile Include="Migrations\201908091432206_guy.Designer.cs">
-      <DependentUpon>201908091432206_guy.cs</DependentUpon>
+    <Compile Include="Migrations\201908102048093_yos.cs" />
+    <Compile Include="Migrations\201908102048093_yos.Designer.cs">
+      <DependentUpon>201908102048093_yos.cs</DependentUpon>
     </Compile>
     <Compile Include="Migrations\Configuration.cs" />
     <Compile Include="Models\Comment.cs" />
@@ -233,6 +234,7 @@
     <Content Include="Scripts\bootstrap.bundle.js.map" />
     <Content Include="Content\bootstrap.min.css.map" />
     <Content Include="Content\bootstrap.css.map" />
+    <Content Include="Scripts\d3\d3.min.js" />
     <Content Include="Scripts\esm\popper-utils.js" />
     <Content Include="Scripts\esm\popper-utils.min.js" />
     <Content Include="Scripts\esm\popper.js" />
@@ -298,6 +300,7 @@
     <Content Include="Views\Books\Details.cshtml" />
     <Content Include="Views\Books\Edit.cshtml" />
     <Content Include="Views\Books\Delete.cshtml" />
+    <Content Include="Views\Statistics\Index.cshtml" />
     <Content Include="Views\Comments\Create.cshtml" />
     <Content Include="Views\Comments\Edit.cshtml" />
     <Content Include="Views\Comments\Index.cshtml" />
@@ -316,8 +319,8 @@
     <EmbeddedResource Include="Migrations\201908021349523_Rename.resx">
       <DependentUpon>201908021349523_Rename.cs</DependentUpon>
     </EmbeddedResource>
-    <EmbeddedResource Include="Migrations\201908091432206_guy.resx">
-      <DependentUpon>201908091432206_guy.cs</DependentUpon>
+    <EmbeddedResource Include="Migrations\201908102048093_yos.resx">
+      <DependentUpon>201908102048093_yos.cs</DependentUpon>
     </EmbeddedResource>
   </ItemGroup>
   <ItemGroup>

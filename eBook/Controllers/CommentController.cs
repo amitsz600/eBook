@@ -117,6 +117,21 @@ namespace eBook.Controllers
             db.SaveChanges();
         }
 
+        [HttpGet]
+        public ActionResult GetAverageNumberForBooksPerMonth()
+        {
+            int numberOfBooks = db.Books.Count();
+            var groupQuery = (from comment in db.Comments
+                             group comment by new {comment.date.Month } into grouped
+                             select new
+                             {
+                                 Month = grouped.Key.Month,
+                                 Count = ((double) grouped.Count()) / numberOfBooks
+                             });
+
+            return Json(groupQuery, JsonRequestBehavior.AllowGet);
+        }
+
         protected override void Dispose(bool disposing)
         {
             if (disposing)

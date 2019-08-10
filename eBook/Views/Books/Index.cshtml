@@ -8,6 +8,8 @@
     ViewBag.Title = "Index";
     Layout = "~/Views/Shared/_Layout.cshtml";
 }
+<div id="fb-root"></div>
+<script async defer crossorigin="anonymous" src="https://connect.facebook.net/he_IL/sdk.js#xfbml=1&version=v4.0"></script>
 <h3>Filter Books</h3>
 <div class="row">
     @using (Html.BeginForm("Index", "Books", FormMethod.Get, new { @class = "col-md-8 row" }))
@@ -114,3 +116,5 @@
         </div>
     }
 </div>
+
+<div class="fb-share-button" data-href="https://www.ebook.co.il" data-layout="button" data-size="small"><a target="_blank" href="https://www.facebook.com/sharer/sharer.php?u=https%3A%2F%2Fwww.ebook.co.il%2F&amp;src=sdkpreparse" class="fb-xfbml-parse-ignore">שתף</a></div>

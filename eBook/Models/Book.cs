@@ -57,6 +57,9 @@ namespace eBook.Models
         [DataType(DataType.Url)]
         public string Video { get; set; }
 
+        [NotMapped]
+        public double AvarageRating;
+
         [DisplayName("Twitter")]
         [AllowHtml]
         [DataType(DataType.MultilineText)]
