@@ -1,13 +1,23 @@
-﻿.title {
-    text-shadow: 3px 3px #DDDDDD;
+﻿@font-face {
+    font-family: siteFont;
+    src: url(../Fonts/Marvel-Regular.ttf);
 }
 
-.ebook-navbar {
+.title {
+    text-shadow: 1px 2px #DDDDDD;
+    font-family: siteFont;
+    font-size:35pt;
+    color:white;
+    margin: 0;
+}
+
+.ebook-navbar,
+.card-book {
     margin-bottom: 10px;
 }
 
 .book-pic {
-    border-radius: 3px;
+    border-radius: 5px;
     width:100px;
 }
 
@@ -15,6 +25,13 @@
 .card-book .card-title {
     font-size: 10pt;
 }
+.card-book .btn {
+    transition: padding 1s;
+}
+    .card-book .btn:hover {
+        padding-right: 1.1rem;
+        padding-left: 1.1rem;
+    }
 
 .card-book-img {
     overflow: hidden;
@@ -72,4 +89,23 @@
 .clickable {
     cursor: pointer;
     color: #007bff;
+}
+}
+
+#map {
+    height: 525px; /* The height is 400 pixels */
+    width: 100%; /* The width is the width of the web page */
+}
+
+.about {
+    padding: 15px;
+    -webkit-column-count: 3;
+    -moz-column-count: 3;
+    column-count: 3;
+    -webkit-column-gap: 40px;
+    -moz-column-gap: 40px;
+    column-gap: 40px;
+    -webkit-column-rule: 1px solid lightgrey;
+    -moz-column-rule: 1px solid lightgrey;
+    column-rule: 1px solid lightgrey;
 }

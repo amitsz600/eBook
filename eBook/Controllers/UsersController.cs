@@ -217,7 +217,7 @@ namespace eBook.Controllers
             }
         }
 
-        //POST: /Users/Search/id
+        //GET: /Users/Search/id
         [HttpGet]
         [Authorize(Roles = IdentityConfigGlobals.MANAGER_ROLE)]
         public ActionResult Search(string Email, DateTime? FromDate, DateTime? ToDate, string Address, string UserName)
@@ -243,6 +243,22 @@ namespace eBook.Controllers
                                    select user;
 
             return View("List", UsersFilterQuery);
+        }
+
+        // GET: /Users/Search/id
+        [HttpGet]
+        [Authorize(Roles = IdentityConfigGlobals.MANAGER_ROLE)]
+        public ActionResult GetAddresses()
+        {
+
+            var UsersFilterQuery = from user in db.Users
+                                   select new
+                                   {
+                                       Address = user.Address,
+                                       UserName = user.UserName
+                                   };
+
+            return Json(UsersFilterQuery, JsonRequestBehavior.AllowGet);
         }
 
 

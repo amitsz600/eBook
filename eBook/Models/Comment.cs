@@ -50,9 +50,5 @@ namespace eBook.Models
 
         [ForeignKey("ProductId")]
         public virtual Book RelatedProduct { get; set; }
-
-        //[ForeignKey("Author")]
-        //public virtual User user { get; set; }
-
     }
 }
