@@ -120,19 +120,14 @@ namespace eBook.Controllers
         [HttpGet]
         public ActionResult GetAverageNumberForBooksPerMonth()
         {
+            int numberOfBooks = db.Books.Count();
             var groupQuery = (from comment in db.Comments
-                             group comment by new {comment.date.Month, comment.ProductId } into grouped
+                             group comment by new {comment.date.Month } into grouped
                              select new
                              {
                                  Month = grouped.Key.Month,
-                                 ProductId = grouped.Key.ProductId,
-                                 Count = grouped.Count()
+                                 Count = ((double) grouped.Count()) / numberOfBooks
                              });
-
-            /*groupQuery.GroupBy(g => g.Month).Select(g => new {
-                Month = g.Key,
-                Count = g.Average(c => c.Count)
-            }).OrderBy(g => g.Month);*/
 
             return Json(groupQuery, JsonRequestBehavior.AllowGet);
         }
