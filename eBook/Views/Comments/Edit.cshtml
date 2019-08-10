@@ -1,0 +1,63 @@
+﻿@model eBook.Models.Comment
+
+@{
+    ViewBag.Title = "Edit";
+    //Layout = "~/Views/Shared/_Layout.cshtml";
+}
+
+<div class="row">
+    @using (Html.BeginForm())
+    {
+        @Html.AntiForgeryToken()
+
+        <div class="form-horizontal">
+            <h4>Edit Comment</h4>
+            <hr />
+            @Html.ValidationSummary(true, "", new { @class = "text-danger" })
+            @Html.HiddenFor(model => model.CommentId)
+            @Html.HiddenFor(model => model.ProductId)
+            @Html.HiddenFor(model => model.Author)
+
+            <div class="form-group">
+                @Html.LabelFor(model => model.Title, htmlAttributes: new { @class = "control-label" })
+                @Html.EditorFor(model => model.Title, new { htmlAttributes = new { @class = "form-control" } })
+                @Html.ValidationMessageFor(model => model.Title, "", new { @class = "text-danger" })
+            </div>
+
+            <div class="form-group">
+                @Html.LabelFor(model => model.Body, htmlAttributes: new { @class = "control-label" })
+                @Html.EditorFor(model => model.Body, new { htmlAttributes = new { @class = "form-control" } })
+                @Html.ValidationMessageFor(model => model.Body, "", new { @class = "text-danger" })
+            </div>
+
+            <div class='starrr'>
+                @Html.LabelFor(model => model.Rating, htmlAttributes: new { @class = "control-label" })
+                @Html.EditorFor(model => model.Rating, new { htmlAttributes = new { @class = "form-control", @id = "rating", @type = "hidden" } })
+                @Html.ValidationMessageFor(model => model.Rating, "", new { @class = "text-danger" })
+            </div>
+
+            <div class="form-group">
+                <input type="submit" value="Save" class="btn btn-success form-control" />
+            </div>
+        </div>
+    }
+</div>
+
+@Scripts.Render("~/bundles/modernizr")
+@Scripts.Render("~/bundles/jquery")
+@Scripts.Render("~/bundles/bootstrap")
+@Scripts.Render("~/bundles/d3")
+
+<script type="text/javascript">
+
+    $(function () {
+        $('.starrr').starrr({
+            rating: document.getElementById('rating').value,
+            change: function (e, value) {
+                var input = document.getElementById('rating');
+                input.setAttribute('value', value);
+            }
+        })
+    });
+
+</script>

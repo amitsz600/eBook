@@ -59,7 +59,7 @@
     function LoadFavorites() {
         $.ajax({
             type: 'GET',
-            url: 'https://localhost:44357/Books/Favorites',
+            url: '/Books/Favorites',
             dataType: 'html',
             data: { username: '@User.Identity.GetUserName()' },
             success: function (data) {
@@ -87,7 +87,6 @@
                 alert("ExceptionType: " + r.ExceptionType);
             }
         });
-        return false;
     }
 </script>
 @*Display all the books*@

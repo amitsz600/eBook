@@ -13,9 +13,9 @@
 <body>
 
     <header>
-        <h1 class="title text-center">eBook</h1>
+        <h1 class="title text-center bg-info">EBOOK</h1>
     </header>
-    <nav class="navbar navbar-expand-lg navbar-dark bg-info ebook-navbar">
+    <nav class="navbar navbar-expand-lg navbar-dark bg-dark ebook-navbar">
         <ul class="nav navbar-nav mr-auto">
             <li class="nav-item">@Html.ActionLink("Home", "Index", "Books", null, new { @class = "nav-link" })</li>
             <li class="nav-item">@Html.ActionLink("About", "Index", "About", null, new { @class = "nav-link" })</li>
@@ -27,7 +27,7 @@
         </ul>
         <ul class="navbar-nav ml-auto">
             <li class="navbar-text">
-                <span class="fa fa-cloud"></span>
+                <span class="icon fa-temperature-high"></span>
                 <span id="temperature"></span>
                 <span id="city"></span>
             </li>
@@ -41,8 +41,6 @@
             {
                 if (User.IsInRole(IdentityConfigGlobals.MANAGER_ROLE))
                 {
-                    /*TODO: make book manager
-                     * <li> @Html.ActionLink("Manage Books", "Manager", "Books", null, new { @class = "nav-link" }) </li>*/
                     <li> @Html.ActionLink("Manage Users", "List", "Users", null, new { @class = "nav-link" }) </li>
                 }
 
@@ -66,53 +64,8 @@
         @Scripts.Render("~/bundles/bootstrap")
         @Scripts.Render("~/bundles/d3")
         <script src="~/Scripts/script.js"></script>
+        <script src="~/Scripts/starrr.js"></script>
 
         @RenderSection("scripts", required: false)
-        <script type="text/javascript">
-            'use strict';
-
-            function invokeMap(uluru) {
-                if (!document.getElementById('map')) {
-                    return;
-                }
-
-                var map = new google.maps.Map(document.getElementById('map'), {
-                    zoom: 4,
-                    center: uluru
-                });
-
-                /*var geocoder = new google.maps.Geocoder();
-                geocoder.geocode({
-                    "address": "books"
-                }, function (results, status) {
-                    if (status == google.maps.GeocoderStatus.OK) {
-                        new google.maps.Marker({
-                            position: results[0].geometry.location,
-                            map: map
-                        });
-                    }
-                });*/
-            }
-
-            function initMap() {
-                $(document).ready(function () {
-                    var defaultPosition = { lat: 32.074302, lng: 34.791007 };
-                    if ("geolocation" in navigator) {
-                        navigator.geolocation.getCurrentPosition(function (position) {
-                            invokeMap({ lat: position.coords.latitude, lng: position.coords.longitude });
-                            }, function (error) {
-                                // Default position if an error occured (e.g. user denied)
-                                invokeMap(defaultPosition);
-                            });
-                    } else {
-                        /* geolocation IS NOT available */
-                        invokeMap(defaultPosition);
-                    }
-                });
-            }
-        </script>
-        <script async defer
-                src="https://maps.googleapis.com/maps/api/js?key=AIzaSyC6mI8I-aMfivZt6nyqNbSCKcNGAQoC2hE&callback=initMap">
-        </script>
     </body>
 </html>
