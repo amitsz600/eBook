@@ -15,19 +15,55 @@
                     <img src="~/Content/Images/def_face.jpg" class="img img-rounded img-fluid avatar" />
                     <a><strong>@Html.DisplayFor(modelItem => item.Author)</strong></a>
                 </div>
-                <div class="col-md-10">
+                <div class="col-md-8">
                     <p>
                         <span class="comment-title">@Html.DisplayFor(modelItem => item.Title)</span>
-                        @for (var i = 0; i < item.Rating; i++)
-                        {
-                            <span class="float-right"><i class="text-warning fa fa-star"></i></span>
-                        }
                     </p>
-                    <p class="comment-body">@Html.DisplayFor(modelItem => item.Body)</p>
+                    <p class="comment-body">
+                        @Html.DisplayFor(modelItem => item.Body)
+                    </p>
+                </div>
+                <div class="col-md-2">
+                    @for (var i = 0; i < item.Rating; i++)
+                    {
+                        <span class="float-right"><i class="text-warning fa fa-star"></i></span>
+                    }
+                    <br />
+                    <span class="float-right">@Html.DisplayFor(modelItem => item.date)</span>
+                    <br />
+                    <div class="comment-icons">
+                        <a onclick='deleteComment(@Html.DisplayFor(modelItem => item.CommentId))'>
+                            <i class="fa fa-trash clickable"></i>
+                        </a>
+                        <a href="@Url.Action("Edit", "Comments", new {id = item.CommentId})">
+                            <i class="fa fa-pencil clickable"></i>
+                        </a>
+                    </div>
                 </div>
             </div>
         </div>
     </div>
-    <br />
+    <br/>
 }
+
+
+<script type="text/javascript">
+    function deleteComment(id) {
+
+            $.ajax({
+                type: 'GET',
+                url: '@Url.Action("Delete", "Comments")' + '/' + id,
+                dataType: 'html',
+                data: { id: '' },
+                success: function () {
+                     LoadData();
+                }
+            });
+    }
+    function openEditComment(id) {
+
+            $("#editComment-" + id).collapse('show')
+    }
+</script>
+
 

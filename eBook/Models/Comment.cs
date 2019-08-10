@@ -46,7 +46,7 @@ namespace eBook.Models
 
         [Required]
         [DataType(DataType.Date)]
-        public DateTime date;
+        public DateTime date { get; set; }
 
         [ForeignKey("ProductId")]
         public virtual Book RelatedProduct { get; set; }

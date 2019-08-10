@@ -5,52 +5,53 @@
     Layout = string.Empty;
 }
 
-<div class="row">
-    @using (Html.BeginForm())
-    {
-        @Html.AntiForgeryToken()
+    <div class="row">
+        @using (Ajax.BeginForm("Create", "Comments", new eBook.Models.Comment()
+        {
+            Author = User.Identity.Name,
+            ProductId = Model.ProductId,
+            Body = Model.Body,
+            CommentId = Model.CommentId,
+            Title = Model.Title,
+            Rating = Model.Rating
+        }, new AjaxOptions(){OnSuccess = "CreatedComment"}
+        ))
+       
+        {
+            @Html.AntiForgeryToken()
 
-        <hr />
-        <a>
-            <span onclick="CloseCreateComment()" class="fa fa-remove float-right" aria-hidden="true"></span>
-        </a>
+            <hr />
 
-        <h6>Add Comment</h6>
+            <a>
+                <span onclick="CloseCreateComment()" class="fa fa-remove float-right" aria-hidden="true"></span>
+            </a>
 
-        <div class="form-group">
-            @Html.LabelFor(model => model.Title, htmlAttributes: new { @class = "control-label" })
-            @Html.EditorFor(model => model.Title, new { htmlAttributes = new { @class = "form-control" } })
-            @Html.ValidationMessageFor(model => model.Title, "", new { @class = "text-danger" })
-        </div>
+            <h6>Add Comment</h6>
 
-        <div class="form-group">
-            @Html.LabelFor(model => model.Body, htmlAttributes: new { @class = "control-label" })
-            @Html.EditorFor(model => model.Body, new { htmlAttributes = new { @class = "form-control" } })
-            @Html.ValidationMessageFor(model => model.Body, "", new { @class = "text-danger" })
-        </div>
+            <div class="form-group">
+                @Html.LabelFor(model => model.Title, htmlAttributes: new { @class = "control-label" })
+                @Html.EditorFor(model => model.Title, new { htmlAttributes = new { @class = "form-control" } })
+                @Html.ValidationMessageFor(model => model.Title, "", new { @class = "text-danger" })
+            </div>
 
-        <div class='starrr'>
-            @Html.LabelFor(model => model.Rating, htmlAttributes: new { @class = "control-label"})
-            @Html.EditorFor(model => model.Rating, new { htmlAttributes = new { @class = "form-control", @id = "Rating", @type="hidden"} })
-            @Html.ValidationMessageFor(model => model.Rating, "", new { @class = "text-danger"})
-        </div>
+            <div class="form-group">
+                @Html.LabelFor(model => model.Body, htmlAttributes: new { @class = "control-label" })
+                @Html.EditorFor(model => model.Body, new { htmlAttributes = new { @class = "form-control" } })
+                @Html.ValidationMessageFor(model => model.Body, "", new { @class = "text-danger" })
+            </div>
 
-        <div class="form-group">
-            <input type="submit"
-                   value="Add Comment"
-                   class="btn btn-info"
-                   formaction='@Url.Action("Create", "Comments", new eBook.Models.Comment()
-                            {
-                                Author = User.Identity.Name,
-                                ProductId = Model.ProductId,
-                                Body = Model.Body,
-                                CommentId = Model.CommentId,
-                                Title = Model.Title,
-                                Rating = Model.Rating
-                            })' />
-        </div>
-    }
-</div>
+            <div class='starrr'>
+                @Html.LabelFor(model => model.Rating, htmlAttributes: new { @class = "control-label" })
+                @Html.EditorFor(model => model.Rating, new { htmlAttributes = new { @class = "form-control", @id = "rating", @type = "hidden" } })
+                @Html.ValidationMessageFor(model => model.Rating, "", new { @class = "text-danger" })
+            </div>
+
+            <div class="form-group">
+                <input class="btn btn-info" type="submit" value="Add Comment" />
+            </div>
+        }
+
+    </div>
 <hr />
 
 @Scripts.Render("~/bundles/modernizr")
@@ -63,9 +64,8 @@
     $(function () {
         $('.starrr').starrr({
             change: function (e, value) {
-                var input = document.getElementById('Rating');
+                var input = document.getElementById('rating');
                 input.setAttribute('value', value);
-                console.log(input.value);
             }
         })
     });
@@ -73,5 +73,10 @@
     function CloseCreateComment() {
         $("#createComment").collapse('hide')
         $("#createCommentButton").show();
+        }
+
+    function CreatedComment() {
+        CloseCreateComment();
+        LoadData();
     }
 </script>

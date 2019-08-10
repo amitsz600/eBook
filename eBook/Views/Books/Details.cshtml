@@ -98,7 +98,7 @@
     {
         @Html.ActionLink("Edit", "Edit", new { id = Model.ProductId })
     }
-    
+
     @if (User.IsInRole(IdentityConfigGlobals.MANAGER_ROLE))
     {
         <span> | </span>
@@ -109,7 +109,7 @@
 
 <h2>Comments</h2>
 
-@if (User.IsInRole(IdentityConfigGlobals.USER_ROLE))
+@if (User.IsInRole(IdentityConfigGlobals.USER_ROLE) || User.IsInRole(IdentityConfigGlobals.MANAGER_ROLE))
 {
     <p>
         <button id="createCommentButton" class="btn btn-info" type="button" onclick="OpenCrateComment()">
@@ -131,6 +131,7 @@
 @Scripts.Render("~/bundles/jquery")
 @Scripts.Render("~/bundles/bootstrap")
 @Scripts.Render("~/bundles/d3")
+@Scripts.Render("~/bundles/jqueryunobtrusive")
 
 <script type="text/javascript">
     $(function () {
@@ -143,8 +144,8 @@
             url: '@Url.Action("Index", "Comments", new {ProductId = Model.ProductId})',
             dataType: 'html',
             data: { id: '' },
-            success: function (data) {
-                $('#comments').append(data);
+            success: function (data) {           
+                $('#comments').html(data);
             },
             error: function (ex) {
                 var r = jQuery.parseJSON(response.responseText);
