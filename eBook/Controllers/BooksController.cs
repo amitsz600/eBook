@@ -259,7 +259,15 @@ namespace eBook.Controllers
 
         private double GetRating(int ProductId)
         {
-            double result = (from comment in db.Comments where comment.ProductId == ProductId select comment.Rating).Average();
+            System.Linq.IQueryable<int> results = (from comment in db.Comments where comment.ProductId == ProductId select comment.Rating);
+
+            double result = 0;
+
+            if (results.Any())
+            {
+                result = results.Average();
+            }
+
             return result;
         }
 

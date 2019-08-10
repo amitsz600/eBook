@@ -45,8 +45,36 @@
                     genre="Religion",
                     Price=200,
                     publisher="tora",
-                    Image = "https://www.what-dog.net/Images/faces2/scroll0015.jpg",
-                    Video = @"http://techslides.com/demos/sample-videos/small.webm",
+                    Image = "https://d3m9l0v76dty0.cloudfront.net/system/photos/521767/large/df63ff97af102350e8fe9a1e03fb10b4.jpg",
+                    Video = @"https://www.youtube.com/watch?v=JTBFnWlurqU",
+                    TwitterWidgets = @"<a class=""twitter-timeline""  href=""https://twitter.com/search?q=%E2%80%8E%23IDFAidToMEX"" data-widget-id=""912076817728720896"">ציוצים על ‎#IDFAidToMEX</a>" + Environment.NewLine +
+                    @"<script>!function(d,s,id){var js,fjs=d.getElementsByTagName(s)[0],p=/^http:/.test(d.location)?'http':'https';if(!d.getElementById(id)){js=d.createElement(s);js.id=id;js.src=p+""://platform.twitter.com/widgets.js"";fjs.parentNode.insertBefore(js,fjs);}}(document,""script"",""twitter-wjs"");</script>"
+                },
+                new Models.Book()
+                {
+                    ProductId = 2,
+                    Title = "Talmud",
+                    Author = "rabbai shtinzlatz",
+                    Description = "talmud bavli",
+                    genre = "Religion",
+                    Price = 200,
+                    publisher = "tora",
+                    Image = "https://www.korenpub.com/media/catalog/product/cache/7/image/335x335/9df78eab33525d08d6e5fb8d27136e95/t/a/talmudbavliset_2_3_1.jpg",
+                    Video = @"https://www.youtube.com/watch?v=tYOCTfok5Lg",
+                    TwitterWidgets = @"<a class=""twitter-timeline""  href=""https://twitter.com/search?q=%E2%80%8E%23IDFAidToMEX"" data-widget-id=""912076817728720896"">ציוצים על ‎#IDFAidToMEX</a>" + Environment.NewLine +
+                    @"<script>!function(d,s,id){var js,fjs=d.getElementsByTagName(s)[0],p=/^http:/.test(d.location)?'http':'https';if(!d.getElementById(id)){js=d.createElement(s);js.id=id;js.src=p+""://platform.twitter.com/widgets.js"";fjs.parentNode.insertBefore(js,fjs);}}(document,""script"",""twitter-wjs"");</script>"
+                },
+                new Models.Book()
+                {
+                    ProductId = 3,
+                    Title = "how bibi make israel empire",
+                    Author = "akiva bigman",
+                    Description = "bibi make israel empire",
+                    genre = "politics",
+                    Price = 200,
+                    publisher = "Balfur",
+                    Image = "https://cdn.shopify.com/s/files/1/2776/1306/files/b4570895aece3f9e977e21ebbd1ea220_large.jpeg?v=1564913501",
+                    Video = @"https://www.youtube.com/watch?v=H0Mp_BMVSTE",
                     TwitterWidgets = @"<a class=""twitter-timeline""  href=""https://twitter.com/search?q=%E2%80%8E%23IDFAidToMEX"" data-widget-id=""912076817728720896"">ציוצים על ‎#IDFAidToMEX</a>" + Environment.NewLine +
                     @"<script>!function(d,s,id){var js,fjs=d.getElementsByTagName(s)[0],p=/^http:/.test(d.location)?'http':'https';if(!d.getElementById(id)){js=d.createElement(s);js.id=id;js.src=p+""://platform.twitter.com/widgets.js"";fjs.parentNode.insertBefore(js,fjs);}}(document,""script"",""twitter-wjs"");</script>"
                 }
