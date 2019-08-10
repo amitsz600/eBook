@@ -17,21 +17,21 @@ namespace eBook.Controllers
         // GET: Comments
         public ActionResult Index(int? ProductId, string Author)
         {
-            var comments = db.Comments;
+            IQueryable<Comment> query = db.Comments;
 
             if (ProductId != null)
             {
-                comments.Where(x => x.ProductId == ProductId);
+                query = query.Where(x => x.ProductId == ProductId);
             }
 
-            if(Author != "")
+            if(Author != null)
             {
-                comments.Where(x => x.Author.Equals(Author));
+                query = query.Where(x => x.Author.Equals(Author));
             }
-            comments.Include(c => c.RelatedProduct);
+            query = query.Include(c => c.RelatedProduct);
 
 
-            return View(comments.ToList());
+            return View(query.ToList());
         }
 
         // GET: Comments/Details/5

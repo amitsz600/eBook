@@ -1,0 +1,45 @@
+﻿@model eBook.Models.User
+@{
+    Layout = "~/Views/Shared/_Layout.cshtml";
+}
+
+<div>
+    <h4>@Html.DisplayFor(model => model.UserName)</h4>
+</div>
+<hr />
+<h2>My Comments</h2>
+
+<div id="comments">
+</div>
+
+@Scripts.Render("~/bundles/modernizr")
+@Scripts.Render("~/bundles/jquery")
+@Scripts.Render("~/bundles/bootstrap")
+@Scripts.Render("~/bundles/d3")
+@Scripts.Render("~/bundles/jqueryunobtrusive")
+
+<script type="text/javascript">
+    $(function () {
+        LoadData();
+    });
+
+    function LoadData() {
+        $.ajax({
+            type: 'GET',
+            url: '@Url.Action("Index", "Comments", new {Author = Model.UserName})',
+            dataType: 'html',
+            data: { id: '' },
+            success: function (data) {
+                $('#comments').html(data);
+            },
+            error: function (ex) {
+                var r = jQuery.parseJSON(response.responseText);
+                alert("Message: " + r.Message);
+                alert("StackTrace: " + r.StackTrace);
+                alert("ExceptionType: " + r.ExceptionType);
+            }
+        });
+        return false;
+    }
+
+</script>  
