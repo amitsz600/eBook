@@ -163,7 +163,7 @@
             {
                 var store = new UserStore<User>(context);
                 var manager = new UserManager<User>(store);
-                var user = new User { Email = "founder2@me.com", UserName = "founder2", Birthday = DateTime.Today, Address = "Tel Aviv" };
+                var user = new User { Email = "founder2@me.com", UserName = "founder2", Birthday = new DateTime(1990,7,7), Address = "Tel Aviv" };
 
                 try
                 {
@@ -182,7 +182,7 @@
             {
                 var store = new UserStore<User>(context);
                 var manager = new UserManager<User>(store);
-                var user = new User { Email = "member@me.com", UserName = "member", Birthday = DateTime.Today, Address = "Tel Aviv" };
+                var user = new User { Email = "member@me.com", UserName = "member", Birthday = new DateTime(1993,12,12), Address = "eilat" };
 
                 context.Users.Add(user);
                 manager.Create(user, "12341234");
