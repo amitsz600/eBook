@@ -11,6 +11,10 @@
     margin: 0;
 }
 
+.filter-books {
+    height: 300px;
+}
+
 .ebook-navbar,
 .card-book {
     margin-bottom: 10px;
