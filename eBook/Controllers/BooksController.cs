@@ -285,23 +285,6 @@ namespace eBook.Controllers
             base.Dispose(disposing);
         }
 
-        // JSON
-        //[HttpGet]
-        //public ActionResult GetLikesNum(int ProductId)
-        //{
-        //    return Json(db.Books.Where(p => p.ProductId == ProductId).Select(p => p.Users.Count), JsonRequestBehavior.AllowGet);
-        //}
-
-
-        //private const int POPULAR_ProductS_AMOUNT = 3;
-        //[System.Web.Mvc.HttpGet]
-        //public ActionResult GetPopularProducts(int? amount)
-        //{
-        //    return Json(db.Books.OrderByDescending(p => p.Users.Count)
-        //            .Select(p => new { p.ProductId, p.Title }).Take(amount ?? POPULAR_ProductS_AMOUNT),
-        //        JsonRequestBehavior.AllowGet);
-        //}
-
         private double GetRating(int ProductId)
         {
             System.Linq.IQueryable<int> results = (from comment in db.Comments where comment.ProductId == ProductId select comment.Rating);
@@ -315,9 +298,5 @@ namespace eBook.Controllers
 
             return result;
         }
-
-
-
-        
     }
 }

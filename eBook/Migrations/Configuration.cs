@@ -149,10 +149,6 @@
 
                );
 
-            
-
-
-
             context.Roles.AddOrUpdate(
 
                     r => r.Id,
@@ -187,17 +183,6 @@
                 var store = new UserStore<User>(context);
                 var manager = new UserManager<User>(store);
                 var user = new User { Email = "member@me.com", UserName = "member", Birthday = DateTime.Today, Address = "Tel Aviv" };
-
-                context.Users.Add(user);
-                manager.Create(user, "12341234");
-                manager.AddToRole(user.Id, IdentityConfigGlobals.USER_ROLE);
-            }
-
-            if (!context.Users.Any(u => u.UserName == "member2"))
-            {
-                var store = new UserStore<User>(context);
-                var manager = new UserManager<User>(store);
-                var user = new User { Email = "member2@me.com", UserName = "member2", Birthday = new DateTime(1995,2,3), Address = "Givatiim" };
 
                 context.Users.Add(user);
                 manager.Create(user, "12341234");
@@ -307,8 +292,6 @@
                     Title = "regular",
                     date = new DateTime(2017, 5, 7)
                 }
-
-
             );
         }
     }
