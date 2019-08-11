@@ -120,7 +120,7 @@ namespace eBook.Controllers
                                                Image = grouped.Key.Image,
                                                raiting = grouped.Average(c => c.Rating)
                                            }).OrderByDescending(b => b.raiting)
-                                           .Take(5).ToList();
+                                           .Take(2).ToList();
 
             } else
             {
@@ -136,10 +136,10 @@ namespace eBook.Controllers
                                                Image = grouped.Key.Image,
                                                raiting = grouped.Average(c => c.Rating)
                                            }).OrderByDescending(b => b.raiting)
-                                           .Take(5).ToList();
+                                           .Take(2).ToList();
             }
 
-            if(booksFromFavoriteGenres.Count() < 5)
+            if(booksFromFavoriteGenres.Count() < 2)
             {
                 List<int> getAllComments = db.Comments.Select(c => c.ProductId).ToList();
                 List<BookAndRaiting> withoutRaiting;
@@ -157,7 +157,7 @@ namespace eBook.Controllers
                                           Author = book.Author,
                                           Image = book.Image,
                                           raiting = 0
-                                      }).Take(5 - booksFromFavoriteGenres.Count()).ToList();
+                                      }).Take(2 - booksFromFavoriteGenres.Count()).ToList();
                 } else
                 {
                     withoutRaiting = (from book in db.Books
@@ -171,7 +171,7 @@ namespace eBook.Controllers
                                           Author = book.Author,
                                           Image = book.Image,
                                           raiting = 0
-                                      }).Take(5 - booksFromFavoriteGenres.Count()).ToList();
+                                      }).Take(2 - booksFromFavoriteGenres.Count()).ToList();
                 }
 
                 booksFromFavoriteGenres.AddRange(withoutRaiting);
