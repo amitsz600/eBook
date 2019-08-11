@@ -24,7 +24,7 @@ namespace eBook.Controllers
                 query = query.Where(x => x.ProductId == ProductId);
             }
 
-            if(Author != null)
+            if (Author != null)
             {
                 query = query.Where(x => x.Author.Equals(Author));
             }
