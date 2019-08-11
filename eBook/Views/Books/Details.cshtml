@@ -131,6 +131,7 @@
             data: { id: '' },
             success: function (data) {
                 $('#comments').html(data);
+                $('.comment-book-title-container').hide();
             },
             error: function (ex) {
                 var r = jQuery.parseJSON(response.responseText);
@@ -160,6 +161,7 @@
                 alert("ExceptionType: " + r.ExceptionType);
             }
         });
+
         return false;
     }
 
