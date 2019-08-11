@@ -30,6 +30,7 @@ namespace eBook.Controllers
             }
 
             query = query.OrderByDescending(x => x.date);
+            
 
             return View(query.ToList());
         }
