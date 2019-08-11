@@ -35,6 +35,20 @@ namespace eBook.Controllers
             return View(query.ToList());
         }
 
+        public ActionResult UserHasComment(int? ProductId)
+        {
+            IQueryable<Comment> query = db.Comments;
+
+            query = query.Where(x => x.ProductId == ProductId);
+            query = query.Where(x => x.Author.Equals(User.Identity.Name));
+
+            query = query.OrderByDescending(x => x.date);
+
+            JsonResult result = Json(new { userHasComment = query.ToList().Count > 0 }, JsonRequestBehavior.AllowGet);
+
+            return result;
+        }
+
         // GET: Comments/Details/5
         public ActionResult Details(int? id)
         {
