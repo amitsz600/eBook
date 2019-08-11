@@ -68,6 +68,10 @@
     text-decoration: underline;
 }
 
+.comment-book-title {
+    font-weight: bold;
+}
+
 .comment-body {
     font-size: small;
 }
