@@ -26,8 +26,9 @@
             var maxSize = 1;
 
             data.forEach(function (item) {
-                maxSize < item.Count;
-                maxSize = item.Count;
+                if (maxSize < item.Count) {
+                    maxSize = item.Count;
+                }
             });
             
             var svgGenre = d3.select('.genre-chart');
@@ -47,15 +48,15 @@
                 .enter()
                 .append('rect')
                 .attr('x', (g) => xScale(g.genre))
-                .attr('y', (g) => height - ((g.Count / maxSize * 0.75) * height))
-                .attr('height', (g) => ((g.Count / maxSize * 0.75) * height))
+                .attr('y', (g) => height - ((g.Count / maxSize) * height))
+                .attr('height', (g) => ((g.Count / maxSize) * height))
                 .attr('width', xScale.bandwidth());
 
             chartGenre.selectAll()
                 .data(data).enter().append('text')
                 .attr('class', 'divergence')
                 .attr('x', (g) => xScale(g.genre) + xScale.bandwidth() / 2)
-                .attr('y', (g) => height - ((g.Count / maxSize * 0.75) * height) + 20)
+                .attr('y', (g) => height - ((g.Count / maxSize) * height) + 20)
                 .attr('fill', 'white')
                 .attr('text-anchor', 'middle')
                 .text((g, idx) => {
@@ -76,8 +77,10 @@
             var monthNames = [ "Jan", "Feb", "Mar", "Apr", "May", "Jun","Jul", "Aug", "Sep", "Oct", "Nov", "Dec" ];
             
             data.forEach(function (item) {
-                maxSize < item.Count;
-                maxSize = item.Count;
+                if (maxSize < item.Count) {
+                    maxSize = item.Count;
+                }
+                
                 
                 if (months.length + 1 != item.Month) {
                     for (i = months.length + 1; i < item.Month; i++) {
@@ -113,15 +116,15 @@
                 .enter()
                 .append('rect')
                 .attr('x', (g) => xScale(g.Month))
-                .attr('y', (g) => height - ((g.Count / maxSize * 0.75) * height))
-                .attr('height', (g) => ((g.Count / maxSize * 0.75) * height))
+                .attr('y', (g) => height - ((g.Count / maxSize ) * height))
+                .attr('height', (g) => ((g.Count / maxSize) * height))
                 .attr('width', xScale.bandwidth());
 
             chartComments.selectAll()
                 .data(months).enter().append('text')
                 .attr('class', 'divergence')
                 .attr('x', (g) => xScale(g.Month) + xScale.bandwidth() / 2)
-                .attr('y', (g) => height - ((g.Count / maxSize * 0.75) * height) + 20)
+                .attr('y', (g) => height - ((g.Count / maxSize) * height) + 20)
                 .attr('fill', 'white')
                 .attr('text-anchor', 'middle')
                 .text((g, idx) => {
