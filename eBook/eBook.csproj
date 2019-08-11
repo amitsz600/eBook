@@ -177,17 +177,13 @@
     <Compile Include="Global.asax.cs">
       <DependentUpon>Global.asax</DependentUpon>
     </Compile>
-    <Compile Include="Migrations\201907211618326_Firs.cs" />
-    <Compile Include="Migrations\201907211618326_Firs.Designer.cs">
-      <DependentUpon>201907211618326_Firs.cs</DependentUpon>
+    <Compile Include="Migrations\201908110943038_new.cs" />
+    <Compile Include="Migrations\201908110943038_new.Designer.cs">
+      <DependentUpon>201908110943038_new.cs</DependentUpon>
     </Compile>
-    <Compile Include="Migrations\201908021349523_Rename.cs" />
-    <Compile Include="Migrations\201908021349523_Rename.Designer.cs">
-      <DependentUpon>201908021349523_Rename.cs</DependentUpon>
-    </Compile>
-    <Compile Include="Migrations\201908102048093_yos.cs" />
-    <Compile Include="Migrations\201908102048093_yos.Designer.cs">
-      <DependentUpon>201908102048093_yos.cs</DependentUpon>
+    <Compile Include="Migrations\201908111114585_ne2.cs" />
+    <Compile Include="Migrations\201908111114585_ne2.Designer.cs">
+      <DependentUpon>201908111114585_ne2.cs</DependentUpon>
     </Compile>
     <Compile Include="Migrations\Configuration.cs" />
     <Compile Include="Models\Comment.cs" />
@@ -313,21 +309,18 @@
     <None Include="packages.config" />
   </ItemGroup>
   <ItemGroup>
-    <EmbeddedResource Include="Migrations\201907211618326_Firs.resx">
-      <DependentUpon>201907211618326_Firs.cs</DependentUpon>
-    </EmbeddedResource>
-    <EmbeddedResource Include="Migrations\201908021349523_Rename.resx">
-      <DependentUpon>201908021349523_Rename.cs</DependentUpon>
-    </EmbeddedResource>
-    <EmbeddedResource Include="Migrations\201908102048093_yos.resx">
-      <DependentUpon>201908102048093_yos.cs</DependentUpon>
-    </EmbeddedResource>
-  </ItemGroup>
-  <ItemGroup>
     <Service Include="{4A0DDDB5-7A95-4FBF-97CC-616D07737A77}" />
   </ItemGroup>
   <ItemGroup>
     <TypeScriptCompile Include="Scripts\index.d.ts" />
+  </ItemGroup>
+  <ItemGroup>
+    <EmbeddedResource Include="Migrations\201908110943038_new.resx">
+      <DependentUpon>201908110943038_new.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Migrations\201908111114585_ne2.resx">
+      <DependentUpon>201908111114585_ne2.cs</DependentUpon>
+    </EmbeddedResource>
   </ItemGroup>
   <PropertyGroup>
     <VisualStudioVersion Condition="'$(VisualStudioVersion)' == ''">10.0</VisualStudioVersion>

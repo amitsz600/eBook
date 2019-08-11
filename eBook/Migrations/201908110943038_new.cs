@@ -3,24 +3,10 @@ namespace eBook.Migrations
     using System;
     using System.Data.Entity.Migrations;
     
-    public partial class Firs : DbMigration
+    public partial class _new : DbMigration
     {
         public override void Up()
         {
-            CreateTable(
-                "dbo.Comments",
-                c => new
-                    {
-                        CommentId = c.Int(nullable: false, identity: true),
-                        ProductId = c.Int(nullable: false),
-                        Title = c.String(nullable: false, maxLength: 50),
-                        Author = c.String(nullable: false, maxLength: 30),
-                        Body = c.String(nullable: false, maxLength: 500),
-                    })
-                .PrimaryKey(t => t.CommentId)
-                .ForeignKey("dbo.Books", t => t.ProductId, cascadeDelete: true)
-                .Index(t => t.ProductId);
-            
             CreateTable(
                 "dbo.Books",
                 c => new
@@ -37,6 +23,22 @@ namespace eBook.Migrations
                         TwitterWidgets = c.String(maxLength: 1000),
                     })
                 .PrimaryKey(t => t.ProductId);
+            
+            CreateTable(
+                "dbo.Comments",
+                c => new
+                    {
+                        CommentId = c.Int(nullable: false, identity: true),
+                        ProductId = c.Int(nullable: false),
+                        Title = c.String(nullable: false, maxLength: 50),
+                        Author = c.String(nullable: false, maxLength: 30),
+                        Body = c.String(nullable: false, maxLength: 500),
+                        Rating = c.Int(nullable: false),
+                        date = c.DateTime(nullable: false),
+                    })
+                .PrimaryKey(t => t.CommentId)
+                .ForeignKey("dbo.Books", t => t.ProductId, cascadeDelete: true)
+                .Index(t => t.ProductId);
             
             CreateTable(
                 "dbo.AspNetRoles",
@@ -130,8 +132,8 @@ namespace eBook.Migrations
             DropTable("dbo.AspNetUsers");
             DropTable("dbo.AspNetUserRoles");
             DropTable("dbo.AspNetRoles");
-            DropTable("dbo.Books");
             DropTable("dbo.Comments");
+            DropTable("dbo.Books");
         }
     }
 }

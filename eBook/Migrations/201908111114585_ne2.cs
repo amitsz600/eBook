@@ -3,16 +3,16 @@ namespace eBook.Migrations
     using System;
     using System.Data.Entity.Migrations;
     
-    public partial class Rename : DbMigration
+    public partial class ne2 : DbMigration
     {
         public override void Up()
         {
-            RenameTable(name: "dbo.Books", newName: "Books");
+            DropColumn("dbo.Books", "TwitterWidgets");
         }
         
         public override void Down()
         {
-            RenameTable(name: "dbo.Books", newName: "Books");
+            AddColumn("dbo.Books", "TwitterWidgets", c => c.String(maxLength: 1000));
         }
     }
 }

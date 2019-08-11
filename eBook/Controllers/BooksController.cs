@@ -91,13 +91,15 @@ namespace eBook.Controllers
                                  select new
                                  {
                                      Genre = grouped.Key.genre,
-                                     NumberOfComments = grouped.Count()
+                                     NumberOfComments = grouped.Count(),
+                                     AvgRating = grouped.Average(ed => ed.Rating)
                                  };
-            var favoriteGenre = new {Genre= "", NumberOfComments = -1 };
+            var favoriteGenre = new {Genre= "", NumberOfComments = -1, AvgRating = -1.0 };
 
             foreach (var genreAndNumberOfComments in favoriteGenres)
             {
-                if (genreAndNumberOfComments.NumberOfComments > favoriteGenre.NumberOfComments)
+                if (genreAndNumberOfComments.NumberOfComments > favoriteGenre.NumberOfComments || 
+                    (genreAndNumberOfComments.AvgRating > favoriteGenre.AvgRating && genreAndNumberOfComments.NumberOfComments == favoriteGenre.NumberOfComments))
                 {
                     favoriteGenre = genreAndNumberOfComments;
                 }
@@ -120,7 +122,7 @@ namespace eBook.Controllers
                                                Image = grouped.Key.Image,
                                                raiting = grouped.Average(c => c.Rating)
                                            }).OrderByDescending(b => b.raiting)
-                                           .Take(5);
+                                           .Take(2);
 
             } else
             {
@@ -136,7 +138,7 @@ namespace eBook.Controllers
                                                Image = grouped.Key.Image,
                                                raiting = grouped.Average(c => c.Rating)
                                            }).OrderByDescending(b => b.raiting)
-                                           .Take(5);
+                                           .Take(2);
             }
 
             return Json(booksFromFavoriteGenres, JsonRequestBehavior.AllowGet);
@@ -156,7 +158,7 @@ namespace eBook.Controllers
         [ValidateAntiForgeryToken]
         [ValidateInput(false)]
         [Authorize(Roles = IdentityConfigGlobals.MANAGER_ROLE + "," + IdentityConfigGlobals.USER_ROLE)]
-        public ActionResult Create([Bind(Include = "ProductId,Title,Author,Price,Description,genre,Image,publisher,TwitterWidgets")] Book book)
+        public ActionResult Create([Bind(Include = "ProductId,Title,Author,Price,Description,genre,Image,publisher")] Book book)
         {
             if (ModelState.IsValid)
             {
@@ -188,7 +190,7 @@ namespace eBook.Controllers
         // more details see https://go.microsoft.com/fwlink/?LinkId=317598.
         [HttpPost]
         [ValidateAntiForgeryToken]
-        public ActionResult Edit([Bind(Include = "ProductId,Title,Author,Price,Description,genre,Image,publisher,TwitterWidgets")] Book book)
+        public ActionResult Edit([Bind(Include = "ProductId,Title,Author,Price,Description,genre,Image,publisher")] Book book)
         { 
             if (ModelState.IsValid)
             {

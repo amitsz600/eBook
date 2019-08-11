@@ -20,11 +20,16 @@
             <li class="nav-item">@Html.ActionLink("Home", "Index", "Books", null, new { @class = "nav-link" })</li>
             <li class="nav-item">@Html.ActionLink("About", "Index", "About", null, new { @class = "nav-link" })</li>
             @*Add New book *@
-            @if (User.Identity.IsAuthenticated)
+            @if (User.IsInRole(IdentityConfigGlobals.MANAGER_ROLE))
             {
                 <li class="nav-item">@Html.ActionLink("Add New Book", "Create", "Books", null, new { @class = "nav-link" })</li>
-                <li class="nav-item">@Html.ActionLink("Profile", "Details", "Users", new {UserName = User.Identity.Name}, new { @class = "nav-link" })</li>
             }
+
+            @if (User.Identity.IsAuthenticated)
+            {
+                <li class="nav-item">@Html.ActionLink("Profile", "Details", "Users", new { UserName = User.Identity.Name }, new { @class = "nav-link" })</li>
+            }
+
         </ul>
         <ul class="navbar-nav ml-auto">
             <li class="navbar-text">
@@ -43,10 +48,11 @@
                 if (User.IsInRole(IdentityConfigGlobals.MANAGER_ROLE))
                 {
                     <li> @Html.ActionLink("Manage Users", "List", "Users", null, new { @class = "nav-link" }) </li>
+                    <li> @Html.ActionLink("Statistics", "Index", "Statistics", null, new { @class = "nav-link" })</li>
                 }
 
 
-                <li> @Html.ActionLink("Statistics", "Index", "Statistics", null, new { @class = "nav-link" })</li>
+
                 <li> @Html.ActionLink("Log Out", "LogOut", "Users", null, new { @class = "nav-link" })</li>
             }
                 </li>

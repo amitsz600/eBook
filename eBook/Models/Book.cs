@@ -59,11 +59,5 @@ namespace eBook.Models
 
         [NotMapped]
         public double AvarageRating;
-
-        [DisplayName("Twitter")]
-        [AllowHtml]
-        [DataType(DataType.MultilineText)]
-        [StringLength(1000, MinimumLength = 3)]
-        public string TwitterWidgets { get; set; }
     }
 }
