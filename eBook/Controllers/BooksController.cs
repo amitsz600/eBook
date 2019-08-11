@@ -103,7 +103,7 @@ namespace eBook.Controllers
                 }
             }
 
-            IQueryable booksFromFavoriteGenres; 
+            List<BookAndRaiting> booksFromFavoriteGenres; 
 
             if (!favoriteGenre.Genre.Equals(""))
             {
@@ -112,7 +112,7 @@ namespace eBook.Controllers
                                            join comment in db.Comments on book.ProductId equals comment.ProductId
                                            group comment by new { book.ProductId, book.Title, book.Author, book.Image } into grouped
                                            where grouped.Count(g => g.Author == username) == 0
-                                           select new
+                                           select new BookAndRaiting
                                            {
                                                ProductId = grouped.Key.ProductId,
                                                Title = grouped.Key.Title,
@@ -120,7 +120,7 @@ namespace eBook.Controllers
                                                Image = grouped.Key.Image,
                                                raiting = grouped.Average(c => c.Rating)
                                            }).OrderByDescending(b => b.raiting)
-                                           .Take(5);
+                                           .Take(5).ToList();
 
             } else
             {
@@ -128,7 +128,7 @@ namespace eBook.Controllers
                                            join comment in db.Comments on book.ProductId equals comment.ProductId
                                            group comment by new { book.ProductId, book.Title, book.Author, book.Image } into grouped
                                            where grouped.Count(g => g.Author == username) == 0
-                                           select new
+                                           select new BookAndRaiting
                                            {
                                                ProductId = grouped.Key.ProductId,
                                                Title = grouped.Key.Title,
@@ -136,9 +136,47 @@ namespace eBook.Controllers
                                                Image = grouped.Key.Image,
                                                raiting = grouped.Average(c => c.Rating)
                                            }).OrderByDescending(b => b.raiting)
-                                           .Take(5);
+                                           .Take(5).ToList();
             }
 
+            if(booksFromFavoriteGenres.Count() < 5)
+            {
+                List<int> getAllComments = db.Comments.Select(c => c.ProductId).ToList();
+                List<BookAndRaiting> withoutRaiting;
+
+                if (!String.IsNullOrWhiteSpace(favoriteGenre.Genre))
+                {
+                    withoutRaiting = (from book in db.Books
+                                      join comment in db.Comments on book.ProductId equals comment.ProductId into bc
+                                      from bcc in bc.DefaultIfEmpty()
+                                      where bcc == null && book.genre == favoriteGenre.Genre
+                                      select new BookAndRaiting
+                                      {
+                                          ProductId = book.ProductId,
+                                          Title = book.Title,
+                                          Author = book.Author,
+                                          Image = book.Image,
+                                          raiting = 0
+                                      }).Take(5 - booksFromFavoriteGenres.Count()).ToList();
+                } else
+                {
+                    withoutRaiting = (from book in db.Books
+                                      join comment in db.Comments on book.ProductId equals comment.ProductId into bc
+                                      from bcc in bc.DefaultIfEmpty()
+                                      where bcc == null
+                                      select new BookAndRaiting
+                                      {
+                                          ProductId = book.ProductId,
+                                          Title = book.Title,
+                                          Author = book.Author,
+                                          Image = book.Image,
+                                          raiting = 0
+                                      }).Take(5 - booksFromFavoriteGenres.Count()).ToList();
+                }
+
+                booksFromFavoriteGenres.AddRange(withoutRaiting);
+            }
+            
             return Json(booksFromFavoriteGenres, JsonRequestBehavior.AllowGet);
         }
 
