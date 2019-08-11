@@ -28,8 +28,8 @@ namespace eBook.Controllers
             {
                 query = query.Where(x => x.Author.Equals(Author));
             }
-            query = query.Include(c => c.RelatedProduct);
 
+            query = query.OrderByDescending(x => x.date);
 
             return View(query.ToList());
         }
