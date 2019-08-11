@@ -24,12 +24,12 @@ namespace eBook.Controllers
                 query = query.Where(x => x.ProductId == ProductId);
             }
 
-            if(Author != null)
+            if (Author != null)
             {
                 query = query.Where(x => x.Author.Equals(Author));
             }
-            query = query.Include(c => c.RelatedProduct);
 
+            query = query.OrderByDescending(x => x.date);
 
             return View(query.ToList());
         }
@@ -70,8 +70,6 @@ namespace eBook.Controllers
                 db.Comments.Add(comment);
                 db.SaveChanges();
             }
-
-            ViewBag.PostId = new SelectList(db.Books, "ProductId", "Title", comment.ProductId);
         }
 
         // GET: Comments/Edit/5
