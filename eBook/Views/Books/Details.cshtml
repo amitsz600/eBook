@@ -93,13 +93,13 @@
 
 </p>
 
-<h2>Comments</h2>
+<h2>Reviews</h2>
 
 @if (User.Identity.IsAuthenticated)
 {
 <p>
     <button id="createCommentButton" class="btn btn-info" type="button" onclick="OpenCrateComment()">
-        Create Comment
+        Create Review
     </button>
 </p>
 
@@ -132,6 +132,27 @@
             data: { id: '' },
             success: function (data) {
                 $('#comments').html(data);
+            },
+            error: function (ex) {
+                var r = jQuery.parseJSON(response.responseText);
+                alert("Message: " + r.Message);
+                alert("StackTrace: " + r.StackTrace);
+                alert("ExceptionType: " + r.ExceptionType);
+            }
+        });
+
+        $.ajax({
+            type: 'GET',
+            url: '@Url.Action("UserHasComment", "Comments", new {ProductId = Model.ProductId, Author = User.Identity.Name})',
+            dataType: 'JSON',
+            data: { id: '' },
+            success: function (data) {
+                if (data.userHasComment) {
+                    $("#createComment").collapse('hide')
+                    $("#createCommentButton").hide();
+                } else {
+                    $("#createCommentButton").show();
+                }
             },
             error: function (ex) {
                 var r = jQuery.parseJSON(response.responseText);
